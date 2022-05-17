@@ -1,5 +1,5 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'yaml-validator-by-json-scheme'
+description: 'Validate .yaml files using JSON schemas'
 inputs:
   milliseconds:  # id of input
     description: 'number of milliseconds to wait'
