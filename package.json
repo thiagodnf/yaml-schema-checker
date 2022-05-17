@@ -6,12 +6,12 @@
     "scripts": {
         "lint": "eslint .",
         "prepare": "ncc build index.js -o dist --source-map --license licenses.txt",
-        "test": "jest",
+        "test": "jest ./test",
         "all": "npm run lint && npm run prepare && npm run test"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/nwisbeta/validate-yaml-schema.git"
+        "url": "git+https://github.com/thiagodonferreira/yaml-schema-validator.git"
     },
     "keywords": [
         "validation",
@@ -27,11 +27,11 @@
     },
     "homepage": "https://github.com/thiagodonferreira/yaml-schema-validator",
     "dependencies": {
-        "@actions/core": "1.2.5"
+        "@actions/core": "1.8.2"
     },
     "devDependencies": {
-        "@vercel/ncc": "0.31.1",
-        "eslint": "8.0.0",
-        "jest": "27.2.5"
+        "@vercel/ncc": "0.33.4",
+        "eslint": "8.15.0",
+        "jest": "28.1.0"
     }
 }
