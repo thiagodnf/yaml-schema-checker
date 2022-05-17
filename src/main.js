@@ -9,6 +9,7 @@ async function run() {
 
         const workspaceRoot = process.env["GITHUB_WORKSPACE"];
 
+        console.log("testing...");
         console.log("workspaceRoot", workspaceRoot);
 
         const ms = core.getInput("milliseconds");
