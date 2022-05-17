@@ -7,14 +7,16 @@ async function run() {
 
     try {
 
-        const workspaceRoot = process.env["GITHUB_WORKSPACE"];
+        // const workspaceRoot = process.env["GITHUB_WORKSPACE"];
 
-        core.info("testing ");
+        // core.info("testing ");
 
-        core.info("testing", workspaceRoot);
-        core.info("work", workspaceRoot);
+        // core.info("testing", workspaceRoot);
+        // core.info("work", workspaceRoot);
 
         const ms = core.getInput("milliseconds");
+
+        core.info("Testing");
 
         core.info(`Waiting ${ms} milliseconds ...`);
 
