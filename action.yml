@@ -1,4 +1,4 @@
-name: "yaml-validator-by-json-scheme"
+name: "yaml-checker"
 description: "Validate .yaml files using JSON schemas"
 branding:
   icon: "check-square"
