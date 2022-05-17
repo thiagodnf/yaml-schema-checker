@@ -1,5 +1,8 @@
 name: "yaml-validator-by-json-scheme"
 description: "Validate .yaml files using JSON schemas"
+branding:
+  icon: "check-square"
+  color: "blue"
 inputs:
   milliseconds: # id of input
     description: "number of milliseconds to wait"
