@@ -1947,15 +1947,15 @@ exports.debug = debug; // for test
 
 /***/ }),
 
-/***/ 258:
+/***/ 312:
 /***/ ((module) => {
 
 let wait = function (milliseconds) {
   return new Promise((resolve) => {
-    if (typeof milliseconds !== 'number') {
-      throw new Error('milliseconds not a number');
+    if (typeof milliseconds !== "number") {
+      throw new Error("milliseconds not a number");
     }
-    setTimeout(() => resolve("done!"), milliseconds)
+    setTimeout(() => resolve("done!"), milliseconds);
   });
 };
 
@@ -2077,32 +2077,95 @@ module.exports = require("util");
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__nccwpck_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
-const core = __nccwpck_require__(186);
-const wait = __nccwpck_require__(258);
+"use strict";
+// ESM COMPAT FLAG
+__nccwpck_require__.r(__webpack_exports__);
 
+;// CONCATENATED MODULE: external "process"
+const external_process_namespaceObject = require("process");
+var external_process_default = /*#__PURE__*/__nccwpck_require__.n(external_process_namespaceObject);
+;// CONCATENATED MODULE: ./src/main.js
+
+const core = __nccwpck_require__(186);
+const wait = __nccwpck_require__(312);
 
 // most @actions toolkit packages have async methods
 async function run() {
-  try {
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
 
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
+    try {
 
-    core.setOutput('time', new Date().toTimeString());
-  } catch (error) {
-    core.setFailed(error.message);
-  }
+        const workspaceRoot = (external_process_default()).env.GITHUB_WORKSPACE;
+
+        // core.info("testing ");
+
+        core.info("testing", workspaceRoot);
+        // core.info("work", workspaceRoot);
+
+        const ms = core.getInput("milliseconds");
+
+        core.info("Testing");
+
+        core.info(`Waiting ${ms} milliseconds ...`);
+
+        core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+
+        await wait(parseInt(ms));
+
+        core.info((new Date()).toTimeString());
+
+        core.setOutput("time", new Date().toTimeString());
+
+    } catch (error) {
+        core.setFailed(error.message);
+    }
 }
 
 run();
