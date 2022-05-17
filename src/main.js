@@ -1,11 +1,17 @@
-const core = require('@actions/core');
-const wait = require('./wait');
+import process from "process";
+const core = require("@actions/core");
+const wait = require("./wait");
 
 // most @actions toolkit packages have async methods
 async function run() {
 
     try {
-        const ms = core.getInput('milliseconds');
+
+        const workspaceRoot = process.env["GITHUB_WORKSPACE"];
+
+        console.log("workspaceRoot", workspaceRoot);
+
+        const ms = core.getInput("milliseconds");
 
         core.info(`Waiting ${ms} milliseconds ...`);
 
@@ -15,7 +21,7 @@ async function run() {
 
         core.info((new Date()).toTimeString());
 
-        core.setOutput('time', new Date().toTimeString());
+        core.setOutput("time", new Date().toTimeString());
 
     } catch (error) {
         core.setFailed(error.message);
