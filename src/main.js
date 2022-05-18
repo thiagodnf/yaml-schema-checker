@@ -14,13 +14,15 @@ async function run() {
 
         const workspaceRoot = process.env["GITHUB_WORKSPACE"];
 
+        core.info(workspaceRoot);
+        core.info(settingsFile);
+
         if (!FileUtils.exists(workspaceRoot)) {
             throw new Error(`${workspaceRoot} does not exist`);
         }
 
-        core.info(FileUtils.getContent(settingsFile));
+        // core.info(FileUtils.getContent(settingsFile));
 
-        core.info(workspaceRoot);
 
         const ms = core.getInput("milliseconds");
 
