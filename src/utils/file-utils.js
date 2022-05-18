@@ -9,6 +9,8 @@ class FileUtils {
 
     static async getContent(file) {
 
+        console.log(file);
+
         const filePath = path.join(FileUtils.getWorkspace(), file);
 
         console.log(filePath);
