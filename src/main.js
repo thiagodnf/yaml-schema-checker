@@ -1,6 +1,9 @@
 import process from "process";
+
 const core = require("@actions/core");
 const wait = require("./wait");
+
+import FileUtils from "./utils/file-utils";
 
 // most @actions toolkit packages have async methods
 async function run() {
@@ -10,6 +13,10 @@ async function run() {
         const workspaceRoot = process.env["GITHUB_WORKSPACE"];
 
         // core.info("testing ");
+
+        const settingsFile = core.getInput("settingsfile");
+
+        core.info(FileUtils.getContent(settingsFile));
 
         core.info(workspaceRoot);
         core.info("testing");
