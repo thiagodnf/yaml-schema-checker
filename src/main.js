@@ -11,7 +11,8 @@ async function run() {
 
         // core.info("testing ");
 
-        core.info("testing", workspaceRoot);
+        core.info(workspaceRoot);
+        core.info("testing");
         // core.info("work", workspaceRoot);
 
         const ms = core.getInput("milliseconds");
