@@ -19,13 +19,17 @@ class StringUtils {
         return str.trim().length === 0;
     }
 
-    static parseJSON(content) {
+    static parseJSON(str) {
 
-        if (StringUtils.isBlank(content)) {
-            throw new Error("content is empty");
+        if (StringUtils.isBlank(str)) {
+            throw new Error("json content is empty");
         }
 
-        return true;
+        try {
+            return JSON.parse(str);
+        } catch (ex) {
+            throw new Error("Invalid JSON content. " + ex);
+        }
     }
 }
 

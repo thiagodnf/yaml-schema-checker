@@ -32,24 +32,12 @@ test("should be a blank string", async () => {
     await expect(StringUtils.isBlank({})).toBe(false);
 });
 
-test("should throw exception when json content is blank", async () => {
+test("should return a valid json object from json content", async () => {
+
+    await expect(StringUtils.parseJSON("{}")).toEqual({});
+    await expect(StringUtils.parseJSON("{\"one\": 1, \"two\": 2}")).toEqual({one: 1, two: 2});
 
     await expect(() => StringUtils.parseJSON("")).toThrow(Error);
     await expect(() => StringUtils.parseJSON("  ")).toThrow(Error);
+    await expect(() => StringUtils.parseJSON("{one: 1, two: 2}")).toThrow(Error);
 });
-
-// test('wait 500 ms', async () => {
-//     const start = new Date();
-//     await wait(500);
-//     const end = new Date();
-//     var delta = Math.abs(end - start);
-//     expect(delta).toBeGreaterThanOrEqual(500);
-// });
-
-// // shows how the runner will run a javascript action with env / stdout protocol
-// test('test runs', () => {
-//     process.env['INPUT_MILLISECONDS'] = 100;
-//     const ip = path.join(__dirname, '../src/main.js');
-//     const result = cp.execSync(`node ${ip}`, { env: process.env }).toString();
-//     console.log(result);
-// })
