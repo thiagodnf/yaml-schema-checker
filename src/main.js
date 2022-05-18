@@ -14,6 +14,10 @@ async function run() {
 
         const workspaceRoot = process.env["GITHUB_WORKSPACE"];
 
+        if (!FileUtils.exists(workspaceRoot)) {
+            throw new Error(`${workspaceRoot} does not exist`);
+        }
+
         core.info(FileUtils.getContent(settingsFile));
 
         core.info(workspaceRoot);

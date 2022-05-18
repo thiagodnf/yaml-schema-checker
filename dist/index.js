@@ -2148,6 +2148,11 @@ class FileUtils {
         return process.env["GITHUB_WORKSPACE"];
     }
 
+    static exists(fileOrPath){
+
+        return external_fs_default().existsSync(fileOrPath);
+    }
+
     static async getContent(file) {
 
         console.log(file);
@@ -2178,6 +2183,10 @@ async function run() {
         const settingsFile = core.getInput("settingsFile");
 
         const workspaceRoot = (external_process_default()).env.GITHUB_WORKSPACE;
+
+        if (!file_utils.exists(workspaceRoot)) {
+            throw new Error(`${workspaceRoot} does not exist`);
+        }
 
         core.info(file_utils.getContent(settingsFile));
 

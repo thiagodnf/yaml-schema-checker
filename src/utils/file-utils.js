@@ -7,6 +7,11 @@ class FileUtils {
         return process.env["GITHUB_WORKSPACE"];
     }
 
+    static exists(fileOrPath){
+
+        return fs.existsSync(fileOrPath);
+    }
+
     static async getContent(file) {
 
         console.log(file);
