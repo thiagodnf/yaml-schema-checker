@@ -14,7 +14,7 @@ async function run() {
 
         // core.info("testing ");
 
-        const settingsFile = core.getInput("settingsfile");
+        const settingsFile = core.getInput("settingsFile");
 
         core.info(FileUtils.getContent(settingsFile));
 
