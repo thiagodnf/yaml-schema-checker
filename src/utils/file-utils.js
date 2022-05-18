@@ -22,7 +22,11 @@ class FileUtils {
 
     static searchFiles(pattern){
 
-        return glob.readdirSync(pattern, {});
+        const options = {
+            cwd: FileUtils.getWorkspace()
+        };
+
+        return glob.sync(pattern, options);
     }
 
     static isEmpty(path) {

@@ -5489,7 +5489,11 @@ class FileUtils {
 
     static searchFiles(pattern){
 
-        return glob.glob.readdirSync(pattern, {});
+        const options = {
+            cwd: FileUtils.getWorkspace()
+        };
+
+        return glob.glob.sync(pattern, options);
     }
 
     static isEmpty(path) {
