@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import process from "process";
-import glob from "glob";
+import { glob } from "glob";
 
 class FileUtils {
 

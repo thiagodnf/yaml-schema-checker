@@ -5464,7 +5464,6 @@ const external_process_namespaceObject = require("process");
 var external_process_default = /*#__PURE__*/__nccwpck_require__.n(external_process_namespaceObject);
 // EXTERNAL MODULE: ./node_modules/glob/glob.js
 var glob = __nccwpck_require__(957);
-var glob_default = /*#__PURE__*/__nccwpck_require__.n(glob);
 ;// CONCATENATED MODULE: ./src/utils/file-utils.js
 
 
@@ -5490,7 +5489,7 @@ class FileUtils {
 
     static searchFiles(pattern){
 
-        return glob_default().readdirSync(pattern, {});
+        return glob.glob.readdirSync(pattern, {});
     }
 
     static isEmpty(path) {
