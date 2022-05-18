@@ -16,6 +16,8 @@ async function run() {
 
         const settingsFile = core.getInput("settingsFile");
 
+        core.info(settingsFile);
+
         core.info(FileUtils.getContent(settingsFile));
 
         core.info(workspaceRoot);
