@@ -2183,44 +2183,6 @@ class FileUtils {
 
 /* harmony default export */ const file_utils = (FileUtils);
 
-;// CONCATENATED MODULE: ./src/utils/string-utils.js
-
-class StringUtils {
-
-    static isString(str) {
-
-        return typeof str === "string" || str instanceof String;
-    }
-
-    static isBlank(str) {
-
-        if (!str) {
-            return true;
-        }
-
-        if (!StringUtils.isString(str)) {
-            return false;
-        }
-
-        return str.trim().length === 0;
-    }
-
-    static parseJSON(str) {
-
-        if (StringUtils.isBlank(str)) {
-            throw new Error("json content is empty");
-        }
-
-        try {
-            return JSON.parse(str);
-        } catch (ex) {
-            throw new Error("Invalid JSON content. " + ex);
-        }
-    }
-}
-
-/* harmony default export */ const string_utils = (StringUtils);
-
 ;// CONCATENATED MODULE: ./src/main.js
 const core = __nccwpck_require__(186);
 const wait = __nccwpck_require__(312);
@@ -2236,19 +2198,19 @@ async function run() {
             throw new Error("Workspace is empty. Did you forget to run \"actions/checkout\" before running this Github Action?");
         }
 
-        const settingsFile = core.getInput("settingsFile");
-        const jsonSchemas = core.getInput("jsonSchemas");
+        const jsonSchemaFile = core.getInput("jsonSchemaFile");
+        const yamlFiles = core.getInput("yamlFiles");
 
-        core.info(settingsFile);
-        core.info(jsonSchemas);
+        core.info(jsonSchemaFile);
+        core.info(yamlFiles);
 
-        const a = string_utils.parseJSON(jsonSchemas);
-
-
+        // const a = StringUtils.parseJSON(jsonSchemas);
 
 
 
-        core.info(a);
+
+
+        // core.info(a);
 
 
         // core.info(FileUtils.getContent(settingsFile));

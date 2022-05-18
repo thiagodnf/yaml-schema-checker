@@ -4,6 +4,14 @@ branding:
   icon: "check-square"
   color: "blue"
 inputs:
+
+  jsonSchemaFile:
+    description: "jsonSchemaFile"
+    required: true
+  yamlFiles:
+    description: "yamlFiles"
+    required: true
+
   settingsFile:
     description: "settingsFile"
     required: false

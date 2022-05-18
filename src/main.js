@@ -12,19 +12,19 @@ async function run() {
             throw new Error("Workspace is empty. Did you forget to run \"actions/checkout\" before running this Github Action?");
         }
 
-        const settingsFile = core.getInput("settingsFile");
-        const jsonSchemas = core.getInput("jsonSchemas");
+        const jsonSchemaFile = core.getInput("jsonSchemaFile");
+        const yamlFiles = core.getInput("yamlFiles");
 
-        core.info(settingsFile);
-        core.info(jsonSchemas);
+        core.info(jsonSchemaFile);
+        core.info(yamlFiles);
 
-        const a = StringUtils.parseJSON(jsonSchemas);
-
-
+        // const a = StringUtils.parseJSON(jsonSchemas);
 
 
 
-        core.info(a);
+
+
+        // core.info(a);
 
 
         // core.info(FileUtils.getContent(settingsFile));

@@ -28,7 +28,7 @@ class StringUtils {
         try {
             return JSON.parse(str);
         } catch (ex) {
-            throw new Error("Invalid JSON content. " + ex);
+            throw new Error("Invalid JSON content. Reason: " + ex);
         }
     }
 }
