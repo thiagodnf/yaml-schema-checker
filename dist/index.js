@@ -5603,7 +5603,7 @@ async function run() {
 
         const files = file_utils.searchFiles(yamlFiles);
 
-        core.info("Validating files");
+        core.info("Analyzing files:");
 
         let numberOfInvalidFiles = 0;
 
@@ -5620,10 +5620,6 @@ async function run() {
         if (numberOfInvalidFiles !== 0) {
             throw new Error(`It was found ${numberOfInvalidFiles} invalid files`);
         }
-
-
-        // core.info(FileUtils.getContent(settingsFile));
-
 
         const ms = core.getInput("milliseconds");
 
