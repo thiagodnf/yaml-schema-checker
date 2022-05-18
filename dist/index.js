@@ -2132,21 +2132,59 @@ __nccwpck_require__.r(__webpack_exports__);
 ;// CONCATENATED MODULE: external "process"
 const external_process_namespaceObject = require("process");
 var external_process_default = /*#__PURE__*/__nccwpck_require__.n(external_process_namespaceObject);
+// EXTERNAL MODULE: external "fs"
+var external_fs_ = __nccwpck_require__(147);
+// EXTERNAL MODULE: external "path"
+var external_path_ = __nccwpck_require__(17);
+;// CONCATENATED MODULE: ./src/utils/file-utils.js
+
+
+
+class FileUtils {
+
+    static getWorkspace() {
+        return process.env["GITHUB_WORKSPACE"];
+    }
+
+    static async getContent(file) {
+
+        console.log(file);
+
+        const filePath = path.join(FileUtils.getWorkspace(), file);
+
+        console.log(filePath);
+
+        return await fs.promises.readFile(filePath, { encoding: "utf-8" });
+    }
+}
+
+/* harmony default export */ const file_utils = ((/* unused pure expression or super */ null && (FileUtils)));
+
 ;// CONCATENATED MODULE: ./src/main.js
+
 
 const core = __nccwpck_require__(186);
 const wait = __nccwpck_require__(312);
+
+
 
 // most @actions toolkit packages have async methods
 async function run() {
 
     try {
 
+
+        core.info("testando");
+
+        core.info(core.getInput("settingsfile"));
+        core.info(core.getInput("settingsFile"));
+
         const workspaceRoot = (external_process_default()).env.GITHUB_WORKSPACE;
 
-        // core.info("testing ");
+        // core.info(FileUtils.getContent(settingsFile));
 
-        core.info("testing", workspaceRoot);
+        core.info(workspaceRoot);
+        core.info("testing");
         // core.info("work", workspaceRoot);
 
         const ms = core.getInput("milliseconds");

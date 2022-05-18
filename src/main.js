@@ -10,6 +10,9 @@ async function run() {
 
     try {
 
+
+        core.info("testando");
+
         core.info(core.getInput("settingsfile"));
         core.info(core.getInput("settingsFile"));
 

@@ -6,6 +6,7 @@
     "author": "Thiago do N. Ferreira",
     "license": "MIT",
     "scripts": {
+        "dev": "nodemon --ignore dist/ --exec npm run prepare",
         "lint": "eslint .",
         "prepare": "ncc build src/main.js -o dist --source-map --license licenses.txt",
         "test": "jest ./test --coverage",
@@ -32,6 +33,7 @@
     "devDependencies": {
         "@vercel/ncc": "0.33.4",
         "eslint": "8.15.0",
-        "jest": "28.1.0"
+        "jest": "28.1.0",
+        "nodemon": "^2.0.16"
     }
 }
