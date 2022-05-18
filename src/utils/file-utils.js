@@ -11,6 +11,8 @@ class FileUtils {
 
         const filePath = path.join(FileUtils.getWorkspace(), file);
 
+        console.log(filePath);
+
         return await fs.promises.readFile(filePath, { encoding: "utf-8" });
     }
 }
