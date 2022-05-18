@@ -4,6 +4,9 @@ branding:
   icon: "check-square"
   color: "blue"
 inputs:
+  settingsFile:
+    description: "settingsFile"
+    required: false
   milliseconds: # id of input
     description: "number of milliseconds to wait"
     required: true
