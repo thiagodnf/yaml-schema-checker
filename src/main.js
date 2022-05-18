@@ -18,7 +18,7 @@ async function run() {
         core.info(settingsFile);
 
         if (FileUtils.isEmpty(workspaceRoot)) {
-            throw new Error(`${workspaceRoot} is empty`);
+            throw new Error(`${workspaceRoot} is empty. Did you forget to run "actions/checkout" before running this Github Action?`);
         }
 
         // core.info(FileUtils.getContent(settingsFile));
