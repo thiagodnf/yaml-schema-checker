@@ -2134,8 +2134,10 @@ const external_process_namespaceObject = require("process");
 var external_process_default = /*#__PURE__*/__nccwpck_require__.n(external_process_namespaceObject);
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(147);
+var external_fs_default = /*#__PURE__*/__nccwpck_require__.n(external_fs_);
 // EXTERNAL MODULE: external "path"
 var external_path_ = __nccwpck_require__(17);
+var external_path_default = /*#__PURE__*/__nccwpck_require__.n(external_path_);
 ;// CONCATENATED MODULE: ./src/utils/file-utils.js
 
 
@@ -2150,15 +2152,15 @@ class FileUtils {
 
         console.log(file);
 
-        const filePath = path.join(FileUtils.getWorkspace(), file);
+        const filePath = external_path_default().join(FileUtils.getWorkspace(), file);
 
         console.log(filePath);
 
-        return await fs.promises.readFile(filePath, { encoding: "utf-8" });
+        return await external_fs_default().promises.readFile(filePath, { encoding: "utf-8" });
     }
 }
 
-/* harmony default export */ const file_utils = ((/* unused pure expression or super */ null && (FileUtils)));
+/* harmony default export */ const file_utils = (FileUtils);
 
 ;// CONCATENATED MODULE: ./src/main.js
 
@@ -2173,19 +2175,13 @@ async function run() {
 
     try {
 
-
-        core.info("testando");
-
-        core.info(core.getInput("settingsfile"));
-        core.info(core.getInput("settingsFile"));
+        const settingsFile = core.getInput("settingsFile");
 
         const workspaceRoot = (external_process_default()).env.GITHUB_WORKSPACE;
 
-        // core.info(FileUtils.getContent(settingsFile));
+        core.info(file_utils.getContent(settingsFile));
 
         core.info(workspaceRoot);
-        core.info("testing");
-        // core.info("work", workspaceRoot);
 
         const ms = core.getInput("milliseconds");
 

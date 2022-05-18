@@ -10,19 +10,13 @@ async function run() {
 
     try {
 
-
-        core.info("testando");
-
-        core.info(core.getInput("settingsfile"));
-        core.info(core.getInput("settingsFile"));
+        const settingsFile = core.getInput("settingsFile");
 
         const workspaceRoot = process.env["GITHUB_WORKSPACE"];
 
-        // core.info(FileUtils.getContent(settingsFile));
+        core.info(FileUtils.getContent(settingsFile));
 
         core.info(workspaceRoot);
-        core.info("testing");
-        // core.info("work", workspaceRoot);
 
         const ms = core.getInput("milliseconds");
 
