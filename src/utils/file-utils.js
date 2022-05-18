@@ -12,6 +12,15 @@ class FileUtils {
         return fs.existsSync(fileOrPath);
     }
 
+    static isEmpty(path) {
+
+        if (!FileUtils.exists(path)) {
+            throw new Error(`${path} does not exist`);
+        }
+
+        return fs.readdirSync(path).length === 0;
+    }
+
     static async getContent(file) {
 
         console.log(file);

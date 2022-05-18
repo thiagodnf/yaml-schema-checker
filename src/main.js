@@ -17,8 +17,8 @@ async function run() {
         core.info(workspaceRoot);
         core.info(settingsFile);
 
-        if (!FileUtils.exists(workspaceRoot)) {
-            throw new Error(`${workspaceRoot} does not exist`);
+        if (FileUtils.isEmpty(workspaceRoot)) {
+            throw new Error(`${workspaceRoot} is empty`);
         }
 
         // core.info(FileUtils.getContent(settingsFile));

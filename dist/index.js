@@ -2153,6 +2153,15 @@ class FileUtils {
         return external_fs_default().existsSync(fileOrPath);
     }
 
+    static isEmpty(path) {
+
+        if (!FileUtils.exists(path)) {
+            throw new Error(`${path} does not exist`);
+        }
+
+        return external_fs_default().readdirSync(path).length === 0;
+    }
+
     static async getContent(file) {
 
         console.log(file);
@@ -2187,8 +2196,8 @@ async function run() {
         core.info(workspaceRoot);
         core.info(settingsFile);
 
-        if (!file_utils.exists(workspaceRoot)) {
-            throw new Error(`${workspaceRoot} does not exist`);
+        if (file_utils.isEmpty(workspaceRoot)) {
+            throw new Error(`${workspaceRoot} is empty`);
         }
 
         // core.info(FileUtils.getContent(settingsFile));
