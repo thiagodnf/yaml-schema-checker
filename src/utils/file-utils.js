@@ -1,7 +1,12 @@
 import fs from "fs";
 import path from "path";
+import process from "process";
 
 class FileUtils {
+
+    static isWorkspaceEmpty(){
+        return FileUtils.isEmpty(FileUtils.getWorkspace());
+    }
 
     static getWorkspace() {
         return process.env["GITHUB_WORKSPACE"];

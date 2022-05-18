@@ -1,25 +1,21 @@
-import process from "process";
-
 const core = require("@actions/core");
 const wait = require("./wait");
 
 import FileUtils from "./utils/file-utils";
 
-// most @actions toolkit packages have async methods
 async function run() {
 
     try {
 
-        const settingsFile = core.getInput("settingsFile");
-
-        const workspaceRoot = process.env["GITHUB_WORKSPACE"];
-
-        core.info(workspaceRoot);
-        core.info(settingsFile);
-
-        if (FileUtils.isEmpty(workspaceRoot)) {
+        if (FileUtils.isWorkspaceEmpty()) {
             throw new Error("Workspace is empty. Did you forget to run \"actions/checkout\" before running this Github Action?");
         }
+
+        const settingsFile = core.getInput("settingsFile");
+
+        core.info(settingsFile);
+
+
 
         // core.info(FileUtils.getContent(settingsFile));
 

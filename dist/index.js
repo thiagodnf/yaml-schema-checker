@@ -2129,23 +2129,28 @@ var __webpack_exports__ = {};
 // ESM COMPAT FLAG
 __nccwpck_require__.r(__webpack_exports__);
 
-;// CONCATENATED MODULE: external "process"
-const external_process_namespaceObject = require("process");
-var external_process_default = /*#__PURE__*/__nccwpck_require__.n(external_process_namespaceObject);
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(147);
 var external_fs_default = /*#__PURE__*/__nccwpck_require__.n(external_fs_);
 // EXTERNAL MODULE: external "path"
 var external_path_ = __nccwpck_require__(17);
 var external_path_default = /*#__PURE__*/__nccwpck_require__.n(external_path_);
+;// CONCATENATED MODULE: external "process"
+const external_process_namespaceObject = require("process");
+var external_process_default = /*#__PURE__*/__nccwpck_require__.n(external_process_namespaceObject);
 ;// CONCATENATED MODULE: ./src/utils/file-utils.js
+
 
 
 
 class FileUtils {
 
+    static isWorkspaceEmpty(){
+        return FileUtils.isEmpty(FileUtils.getWorkspace());
+    }
+
     static getWorkspace() {
-        return process.env["GITHUB_WORKSPACE"];
+        return (external_process_default()).env.GITHUB_WORKSPACE;
     }
 
     static exists(fileOrPath){
@@ -2177,28 +2182,24 @@ class FileUtils {
 /* harmony default export */ const file_utils = (FileUtils);
 
 ;// CONCATENATED MODULE: ./src/main.js
-
-
 const core = __nccwpck_require__(186);
 const wait = __nccwpck_require__(312);
 
 
 
-// most @actions toolkit packages have async methods
 async function run() {
 
     try {
 
-        const settingsFile = core.getInput("settingsFile");
-
-        const workspaceRoot = (external_process_default()).env.GITHUB_WORKSPACE;
-
-        core.info(workspaceRoot);
-        core.info(settingsFile);
-
-        if (file_utils.isEmpty(workspaceRoot)) {
+        if (file_utils.isWorkspaceEmpty()) {
             throw new Error("Workspace is empty. Did you forget to run \"actions/checkout\" before running this Github Action?");
         }
+
+        const settingsFile = core.getInput("settingsFile");
+
+        core.info(settingsFile);
+
+
 
         // core.info(FileUtils.getContent(settingsFile));
 
