@@ -4,7 +4,6 @@ branding:
   icon: "check-square"
   color: "blue"
 inputs:
-
   jsonSchemaFile:
     description: "jsonSchemaFile"
     required: true
@@ -12,12 +11,6 @@ inputs:
     description: "yamlFiles"
     required: true
 
-  settingsFile:
-    description: "settingsFile"
-    required: false
-  jsonSchemas:
-    description: "jsonSchemas"
-    required: true
   milliseconds: # id of input
     description: "number of milliseconds to wait"
     required: true

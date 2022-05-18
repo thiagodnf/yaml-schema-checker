@@ -13,7 +13,16 @@ async function run() {
         }
 
         const jsonSchemaFile = core.getInput("jsonSchemaFile");
+
+        if (StringUtils.isBlank(jsonSchemaFile)) {
+            throw new Error("The 'jsonSchemaFile' parameter should not be blank");
+        }
+
         const yamlFiles = core.getInput("yamlFiles");
+
+        if (StringUtils.isBlank(yamlFiles)) {
+            throw new Error("The 'yamlFiles' parameter should not be blank");
+        }
 
         core.info(jsonSchemaFile);
         core.info(yamlFiles);
