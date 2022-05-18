@@ -7,6 +7,9 @@ inputs:
   settingsFile:
     description: "settingsFile"
     required: false
+  jsonSchemas:
+    description: "jsonSchemas"
+    required: true
   milliseconds: # id of input
     description: "number of milliseconds to wait"
     required: true

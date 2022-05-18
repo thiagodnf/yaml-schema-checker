@@ -2146,10 +2146,12 @@ var external_process_default = /*#__PURE__*/__nccwpck_require__.n(external_proce
 class FileUtils {
 
     static isWorkspaceEmpty(){
+
         return FileUtils.isEmpty(FileUtils.getWorkspace());
     }
 
     static getWorkspace() {
+
         return (external_process_default()).env.GITHUB_WORKSPACE;
     }
 
