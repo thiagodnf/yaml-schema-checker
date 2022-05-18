@@ -5557,9 +5557,23 @@ class StringUtils {
 
 /* harmony default export */ const string_utils = (StringUtils);
 
+;// CONCATENATED MODULE: ./src/utils/schema-utils.js
+
+class SchemaUtils {
+
+    static isValid(){
+
+
+        return true;
+    }
+}
+
+/* harmony default export */ const schema_utils = (SchemaUtils);
+
 ;// CONCATENATED MODULE: ./src/main.js
 const core = __nccwpck_require__(186);
 const wait = __nccwpck_require__(312);
+
 
 
 
@@ -5590,17 +5604,11 @@ async function run() {
         const files = file_utils.searchFiles(yamlFiles);
 
         files.forEach(file => {
-            core.info(file);
+
+            if (schema_utils.isValid(jsonSchemaFile, file)) {
+                core.info(`${file} ✅`);
+            }
         });
-
-
-        // const a = StringUtils.parseJSON(jsonSchemas);
-
-
-
-
-
-        // core.info(a);
 
 
         // core.info(FileUtils.getContent(settingsFile));

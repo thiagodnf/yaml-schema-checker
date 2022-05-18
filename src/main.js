@@ -3,6 +3,7 @@ const wait = require("./wait");
 
 import FileUtils from "./utils/file-utils";
 import StringUtils from "./utils/string-utils";
+import SchemaUtils from "./utils/schema-utils";
 
 async function run() {
 
@@ -30,17 +31,11 @@ async function run() {
         const files = FileUtils.searchFiles(yamlFiles);
 
         files.forEach(file => {
-            core.info(file);
+
+            if (SchemaUtils.isValid(jsonSchemaFile, file)) {
+                core.info(`${file} ✅`);
+            }
         });
-
-
-        // const a = StringUtils.parseJSON(jsonSchemas);
-
-
-
-
-
-        // core.info(a);
 
 
         // core.info(FileUtils.getContent(settingsFile));
