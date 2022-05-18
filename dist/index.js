@@ -5573,6 +5573,7 @@ async function run() {
         }
 
         const jsonSchemaFile = core.getInput("jsonSchemaFile");
+        const yamlFiles = core.getInput("yamlFiles");
 
         if (string_utils.isBlank(jsonSchemaFile)) {
             throw new Error("The 'jsonSchemaFile' parameter should not be blank");
@@ -5582,19 +5583,16 @@ async function run() {
             throw new Error(`${jsonSchemaFile} could not be found in workspace`);
         }
 
-        const yamlFiles = core.getInput("yamlFiles");
-
         if (string_utils.isBlank(yamlFiles)) {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
         const files = file_utils.searchFiles(yamlFiles);
 
+        files.forEach(file => {
+            core.info(file);
+        });
 
-        core.info(files);
-
-        core.info(jsonSchemaFile);
-        core.info(yamlFiles);
 
         // const a = StringUtils.parseJSON(jsonSchemas);
 
