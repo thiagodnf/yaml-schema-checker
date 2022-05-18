@@ -2198,9 +2198,11 @@ async function run() {
         }
 
         const settingsFile = core.getInput("settingsFile");
+        const jsonSchemas = core.getInput("jsonSchemas");
+
 
         core.info(settingsFile);
-
+        core.info(jsonSchemas);
 
 
         // core.info(FileUtils.getContent(settingsFile));
