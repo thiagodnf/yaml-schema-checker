@@ -29,7 +29,8 @@
     "homepage": "https://github.com/thiagodonferreira/yaml-schema-checker",
     "dependencies": {
         "@actions/core": "1.8.2",
-        "glob": "8.0.3"
+        "glob": "8.0.3",
+        "yaml-language-server": "1.7.0"
     },
     "devDependencies": {
         "@babel/preset-env": "7.17.12",

@@ -28,9 +28,9 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        const files = FileUtils.searchFiles(yamlFiles);
-
         core.info("Analyzing files:");
+
+        const files = FileUtils.searchFiles(yamlFiles);
 
         let numberOfInvalidFiles = 0;
 

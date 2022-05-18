@@ -2,17 +2,18 @@ import fs from "fs";
 import path from "path";
 import process from "process";
 import { glob } from "glob";
+import { TextDocument } from "vscode-languageserver-textdocument"
 
 class FileUtils {
 
     static isWorkspaceEmpty() {
 
-        return FileUtils.isEmpty(FileUtils.getWorkspace());
+        return FileUtils.isEmpty(FileUtils.getWorkspacePath());
     }
 
-    static getWorkspace() {
+    static getWorkspacePath() {
 
-        return process.env["GITHUB_WORKSPACE"];
+        return process.env["GITHUB_WORKSPACE"] || "";
     }
 
     static exists(fileOrPath) {
@@ -20,10 +21,10 @@ class FileUtils {
         return fs.existsSync(fileOrPath);
     }
 
-    static searchFiles(pattern){
+    static searchFiles(pattern) {
 
         const options = {
-            cwd: FileUtils.getWorkspace()
+            cwd: FileUtils.getWorkspacePath()
         };
 
         return glob.sync(pattern, options);
@@ -38,15 +39,28 @@ class FileUtils {
         return fs.readdirSync(path).length === 0;
     }
 
-    static async getContent(file) {
+    static getContent(file, encoding = "utf-8") {
 
-        console.log(file);
+        const filePath = path.join(FileUtils.getWorkspacePath(), file);
 
-        const filePath = path.join(FileUtils.getWorkspace(), file);
+        return fs.readFileSync(filePath, { encoding });
+    }
 
-        console.log(filePath);
+    static getYaml(file) {
 
-        return await fs.promises.readFile(filePath, { encoding: "utf-8" });
+        try {
+
+            const fileContents = FileUtils.getContent(file, "utf-8");
+
+            return TextDocument.create(
+                path.join(FileUtils.getWorkspacePath(), file),
+                "yaml",
+                0,
+                fileContents
+            );
+        } catch (ex) {
+            throw new Error(ex);
+        }
     }
 }
 
