@@ -2,6 +2,7 @@ const core = require("@actions/core");
 const wait = require("./wait");
 
 import FileUtils from "./utils/file-utils";
+import StringUtils from "./utils/string-utils";
 
 async function run() {
 
@@ -14,11 +15,14 @@ async function run() {
         const settingsFile = core.getInput("settingsFile");
         const jsonSchemas = core.getInput("jsonSchemas");
 
+        const a = StringUtils.parseJSON(jsonSchemas);
+
 
 
 
         core.info(settingsFile);
         core.info(jsonSchemas);
+        core.info(a);
 
 
         // core.info(FileUtils.getContent(settingsFile));

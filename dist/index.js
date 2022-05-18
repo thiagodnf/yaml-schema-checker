@@ -2160,15 +2160,6 @@ class FileUtils {
         return external_fs_default().existsSync(fileOrPath);
     }
 
-    static parseJSON(content) {
-
-        content = content ? content.trim() : content;
-
-        if (content.length === 0) {
-            throw new Error("content is empty");
-        }
-    }
-
     static isEmpty(path) {
 
         if (!FileUtils.exists(path)) {
@@ -2192,9 +2183,48 @@ class FileUtils {
 
 /* harmony default export */ const file_utils = (FileUtils);
 
+;// CONCATENATED MODULE: ./src/utils/string-utils.js
+
+class StringUtils {
+
+    static isString(str) {
+
+        return typeof str === "string" || str instanceof String;
+    }
+
+    static isBlank(str) {
+
+        if (!str) {
+            return true;
+        }
+
+        if (!StringUtils.isString(str)) {
+            return false;
+        }
+
+        return str.trim().length === 0;
+    }
+
+    static parseJSON(str) {
+
+        if (StringUtils.isBlank(str)) {
+            throw new Error("json content is empty");
+        }
+
+        try {
+            return JSON.parse(str);
+        } catch (ex) {
+            throw new Error("Invalid JSON content. " + ex);
+        }
+    }
+}
+
+/* harmony default export */ const string_utils = (StringUtils);
+
 ;// CONCATENATED MODULE: ./src/main.js
 const core = __nccwpck_require__(186);
 const wait = __nccwpck_require__(312);
+
 
 
 
@@ -2209,11 +2239,14 @@ async function run() {
         const settingsFile = core.getInput("settingsFile");
         const jsonSchemas = core.getInput("jsonSchemas");
 
+        const a = string_utils.parseJSON(jsonSchemas);
+
 
 
 
         core.info(settingsFile);
         core.info(jsonSchemas);
+        core.info(a);
 
 
         // core.info(FileUtils.getContent(settingsFile));
