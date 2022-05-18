@@ -2145,7 +2145,7 @@ var external_process_default = /*#__PURE__*/__nccwpck_require__.n(external_proce
 
 class FileUtils {
 
-    static isWorkspaceEmpty(){
+    static isWorkspaceEmpty() {
 
         return FileUtils.isEmpty(FileUtils.getWorkspace());
     }
@@ -2155,9 +2155,18 @@ class FileUtils {
         return (external_process_default()).env.GITHUB_WORKSPACE;
     }
 
-    static exists(fileOrPath){
+    static exists(fileOrPath) {
 
         return external_fs_default().existsSync(fileOrPath);
+    }
+
+    static parseJSON(content) {
+
+        content = content ? content.trim() : content;
+
+        if (content.length === 0) {
+            throw new Error("content is empty");
+        }
     }
 
     static isEmpty(path) {
@@ -2199,6 +2208,8 @@ async function run() {
 
         const settingsFile = core.getInput("settingsFile");
         const jsonSchemas = core.getInput("jsonSchemas");
+
+
 
 
         core.info(settingsFile);

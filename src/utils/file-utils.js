@@ -4,7 +4,7 @@ import process from "process";
 
 class FileUtils {
 
-    static isWorkspaceEmpty(){
+    static isWorkspaceEmpty() {
 
         return FileUtils.isEmpty(FileUtils.getWorkspace());
     }
@@ -14,7 +14,7 @@ class FileUtils {
         return process.env["GITHUB_WORKSPACE"];
     }
 
-    static exists(fileOrPath){
+    static exists(fileOrPath) {
 
         return fs.existsSync(fileOrPath);
     }

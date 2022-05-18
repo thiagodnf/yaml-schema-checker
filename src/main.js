@@ -15,6 +15,8 @@ async function run() {
         const jsonSchemas = core.getInput("jsonSchemas");
 
 
+
+
         core.info(settingsFile);
         core.info(jsonSchemas);
 
