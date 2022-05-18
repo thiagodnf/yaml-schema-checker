@@ -30,12 +30,23 @@ async function run() {
 
         const files = FileUtils.searchFiles(yamlFiles);
 
+        core.info("Validating files");
+
+        let numberOfInvalidFiles = 0;
+
         files.forEach(file => {
 
             if (SchemaUtils.isValid(jsonSchemaFile, file)) {
-                core.info(`${file} ✅`);
+                core.info(`✅ ${file}`);
+            } else {
+                numberOfInvalidFiles++;
+                core.info(`❌ ${file}`);
             }
         });
+
+        if (numberOfInvalidFiles !== 0) {
+            throw new Error(`It was found ${numberOfInvalidFiles} invalid files`);
+        }
 
 
         // core.info(FileUtils.getContent(settingsFile));
