@@ -19,7 +19,7 @@ async function run() {
         }
 
         if (!FileUtils.exists(jsonSchemaFile)) {
-            throw new Error(`${jsonSchemaFile} was not found in the workspace`);
+            throw new Error(`${jsonSchemaFile} could not be found in workspace`);
         }
 
         const yamlFiles = core.getInput("yamlFiles");
@@ -28,7 +28,10 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
+        const files = FileUtils.searchFiles(yamlFiles);
 
+
+        core.info(files);
 
         core.info(jsonSchemaFile);
         core.info(yamlFiles);

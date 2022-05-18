@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import process from "process";
+import glob from "glob";
 
 class FileUtils {
 
@@ -17,6 +18,11 @@ class FileUtils {
     static exists(fileOrPath) {
 
         return fs.existsSync(fileOrPath);
+    }
+
+    static searchFiles(pattern){
+
+        return glob.readdirSync(pattern, {});
     }
 
     static isEmpty(path) {
