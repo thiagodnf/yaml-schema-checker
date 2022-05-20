@@ -11337,6 +11337,8 @@ async function run() {
             }
         });
 
+        main_core.info("Done");
+
         if (numberOfInvalidFiles !== 0) {
             throw new Error(`It was found ${numberOfInvalidFiles} invalid files`);
         }
