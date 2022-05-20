@@ -7107,23 +7107,6 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 312:
-/***/ ((module) => {
-
-let wait = function (milliseconds) {
-  return new Promise((resolve) => {
-    if (typeof milliseconds !== "number") {
-      throw new Error("milliseconds not a number");
-    }
-    setTimeout(() => resolve("done!"), milliseconds);
-  });
-};
-
-module.exports = wait;
-
-
-/***/ }),
-
 /***/ 491:
 /***/ ((module) => {
 
@@ -11297,7 +11280,6 @@ class SchemaUtils {
 
 ;// CONCATENATED MODULE: ./src/main.js
 const main_core = __nccwpck_require__(186);
-const wait = __nccwpck_require__(312);
 
 
 
@@ -11327,6 +11309,7 @@ async function run() {
         }
 
         main_core.info(`Json Schema: ${jsonSchemaFile}`);
+        main_core.info(`Yaml Files: ${yamlFiles}`);
 
         const schemaContentAsJson = file_utils.getContentFromJson(jsonSchemaFile);
 
@@ -11350,7 +11333,7 @@ async function run() {
                 numberOfInvalidFiles++;
 
                 result.errors.forEach(error => {
-                    main_core.info(`\t${error.message}`);
+                    main_core.info(`\t- ${error.stack}`);
                 });
             }
         });
@@ -11359,19 +11342,7 @@ async function run() {
             throw new Error(`It was found ${numberOfInvalidFiles} invalid files`);
         }
 
-        const ms = main_core.getInput("milliseconds");
-
-        main_core.info("Testing");
-
-        main_core.info(`Waiting ${ms} milliseconds ...`);
-
-        main_core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-
-        await wait(parseInt(ms));
-
-        main_core.info((new Date()).toTimeString());
-
-        main_core.setOutput("time", new Date().toTimeString());
+        main_core.setOutput("numberOfInvalidFiles", numberOfInvalidFiles);
 
     } catch (error) {
         main_core.setFailed(error.message);
