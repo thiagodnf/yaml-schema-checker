@@ -11411,7 +11411,7 @@ async function run() {
 
             const yamlContentAsJson = file_utils.getContentFromYaml(file);
 
-            if (schema_utils.isValid(schemaContentAsJson, yamlContentAsJson)) {
+            if (schema_utils.validate(schemaContentAsJson, yamlContentAsJson).errors.length === 0) {
                 main_core.info(`✅ ${file}`);
             } else {
                 numberOfInvalidFiles++;
