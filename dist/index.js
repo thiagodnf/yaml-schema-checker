@@ -11415,8 +11415,6 @@ async function run() {
 
             const result = schema_utils.validate(schemaContentAsJson, yamlContentAsJson);
 
-            main_core.info(result);
-
             if (result.errors.length === 0) {
                 main_core.info(`✅ ${file}`);
             } else {

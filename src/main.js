@@ -44,8 +44,6 @@ async function run() {
 
             const result = SchemaUtils.validate(schemaContentAsJson, yamlContentAsJson);
 
-            core.info(result);
-
             if (result.errors.length === 0) {
                 core.info(`✅ ${file}`);
             } else {
