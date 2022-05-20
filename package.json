@@ -8,7 +8,7 @@
     "scripts": {
         "dev": "nodemon --ignore dist/ --exec npm run prepare",
         "lint": "eslint .",
-        "prepare": "ncc build src/main.js -o dist --source-map -a --license licenses.txt",
+        "prepare": "ncc build src/main.js -o dist --source-map --asset-builds  --license licenses.txt",
         "test": "jest ./test --coverage",
         "all": "npm run lint && npm run prepare && npm run test"
     },
