@@ -38,6 +38,10 @@ async function run() {
 
         const files = FileUtils.searchFiles(yamlFiles);
 
+        core.info(files);
+
+        SchemaUtils.validate("teste", jsonSchema, yamlContent);
+
         let numberOfInvalidFiles = 0;
 
         // files.forEach(file => {
