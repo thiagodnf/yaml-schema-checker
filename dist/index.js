@@ -11350,7 +11350,7 @@ class SchemaUtils {
     //     };
     // }
 
-    static async validate(schemaContentAsJson, yamlContentAsJson) {
+    static validate(schemaContentAsJson, yamlContentAsJson) {
 
 
          return v.validate(yamlContentAsJson, schemaContentAsJson);

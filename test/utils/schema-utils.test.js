@@ -22,7 +22,7 @@ test("should be a valid yml", async () => {
 
     const contentAsJson = StringUtils.parseYaml("fake.yml", content);
 
-    await expect((await SchemaUtils.validate(jsonSchema, contentAsJson)).errors.length).toBe(0);
+    await expect((SchemaUtils.validate(jsonSchema, contentAsJson)).errors.length).toBe(0);
 });
 
 test("should be a invalid yml", async () => {
@@ -40,5 +40,5 @@ test("should be a invalid yml", async () => {
 
     const contentAsJson = StringUtils.parseYaml("fake.yml", content);
 
-    await expect((await SchemaUtils.validate(jsonSchema, contentAsJson)).errors.length).toBe(1);
+    await expect((SchemaUtils.validate(jsonSchema, contentAsJson)).errors.length).toBe(1);
 });
