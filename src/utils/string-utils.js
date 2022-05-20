@@ -1,4 +1,6 @@
 
+import { TextDocument } from "vscode-languageserver-textdocument";
+
 class StringUtils {
 
     static isString(str) {
@@ -19,17 +21,26 @@ class StringUtils {
         return str.trim().length === 0;
     }
 
-    static parseJSON(str) {
+    static parseJSON(fileUri, content) {
 
-        if (StringUtils.isBlank(str)) {
-            throw new Error("json content is empty");
+        if (StringUtils.isBlank(content)) {
+            throw new Error("json content is blank");
         }
 
         try {
-            return JSON.parse(str);
+            return JSON.parse(content);
         } catch (ex) {
-            throw new Error("Invalid JSON content. Reason: " + ex);
+            throw new Error(`${fileUri} is invalid. Reason: ${ex}`);
         }
+    }
+
+    static parseYaml(fileUri, content) {
+
+        if (StringUtils.isBlank(content)) {
+            throw new Error("yaml content is blank");
+        }
+
+        return TextDocument.create(fileUri, "yaml", 0, content);
     }
 }
 

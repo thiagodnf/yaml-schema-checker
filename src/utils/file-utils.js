@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import process from "process";
 import { glob } from "glob";
-import { TextDocument } from "vscode-languageserver-textdocument"
 
 class FileUtils {
 
@@ -46,22 +45,22 @@ class FileUtils {
         return fs.readFileSync(filePath, { encoding });
     }
 
-    static getYaml(file) {
+    // static getYaml(file) {
 
-        try {
+    //     try {
 
-            const fileContents = FileUtils.getContent(file, "utf-8");
+    //         const fileContents = FileUtils.getContent(file, "utf-8");
 
-            return TextDocument.create(
-                path.join(FileUtils.getWorkspacePath(), file),
-                "yaml",
-                0,
-                fileContents
-            );
-        } catch (ex) {
-            throw new Error(ex);
-        }
-    }
+    //         return TextDocument.create(
+    //             path.join(FileUtils.getWorkspacePath(), file),
+    //             "yaml",
+    //             0,
+    //             fileContents
+    //         );
+    //     } catch (ex) {
+    //         throw new Error(ex);
+    //     }
+    // }
 }
 
 export default FileUtils;
