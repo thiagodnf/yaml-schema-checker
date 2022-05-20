@@ -11271,7 +11271,6 @@ class SchemaUtils {
 
     static validate(schemaContentAsJson, yamlContentAsJson) {
 
-        console.log(new lib.Validator().validate(yamlContentAsJson, schemaContentAsJson));
         return new lib.Validator().validate(yamlContentAsJson, schemaContentAsJson);
     }
 }
