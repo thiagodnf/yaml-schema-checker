@@ -28,21 +28,27 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
+        const jsonSchema = StringUtils.parseJSON(FileUtils.getContent(jsonSchemaFile));
+        const yamlContent = FileUtils.getContent(yamlFiles);
+
+        core.info(jsonSchema);
+        core.info(yamlContent);
+
         core.info("Analyzing files:");
 
         const files = FileUtils.searchFiles(yamlFiles);
 
         let numberOfInvalidFiles = 0;
 
-        files.forEach(file => {
+        // files.forEach(file => {
 
-            if (SchemaUtils.isValid(jsonSchemaFile, file)) {
-                core.info(`✅ ${file}`);
-            } else {
-                numberOfInvalidFiles++;
-                core.info(`❌ ${file}`);
-            }
-        });
+        //     if (SchemaUtils.isValid(jsonSchemaFile, file)) {
+        //         core.info(`✅ ${file}`);
+        //     } else {
+        //         numberOfInvalidFiles++;
+        //         core.info(`❌ ${file}`);
+        //     }
+        // });
 
         if (numberOfInvalidFiles !== 0) {
             throw new Error(`It was found ${numberOfInvalidFiles} invalid files`);
