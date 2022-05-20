@@ -34,7 +34,7 @@ async function run() {
 
         const files = FileUtils.searchFiles(yamlFiles);
 
-        core.info(`Found ${files.length} for files. Checking them`);
+        core.info(`Found ${files.length} file(s). Checking them`);
 
         let numberOfInvalidFiles = 0;
 
