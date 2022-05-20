@@ -37,11 +37,11 @@
         "jsonschema": "1.4.1"
     },
     "devDependencies": {
-        "@babel/preset-env": "7.17.12",
+        "@babel/preset-env": "7.18.0",
         "@vercel/ncc": "0.33.4",
         "babel-jest": "28.1.0",
         "eslint": "8.15.0",
         "jest": "28.1.0",
-        "nodemon": "^2.0.16"
+        "nodemon": "2.0.16"
     }
 }
