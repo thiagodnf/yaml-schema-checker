@@ -11,7 +11,19 @@ import StringUtils from "./string-utils";
 
 class SchemaUtils {
 
-    static setupLanguageService(languageSettings) {
+    static setupLanguageService() {
+
+        let languageSettings = {
+            validate: true,
+            hover: false,
+            completion: true,
+            format: false,
+            isKubernetes: false,
+            schemas: [],
+            customTags: [],
+            indentation: undefined,
+            yamlVersion: "1.2",
+        };
 
         const yamlSettings = new SettingsState();
 
@@ -20,7 +32,7 @@ class SchemaUtils {
         const connection = createConnection();
 
         const schemaRequestHandlerWrapper = (connection, uri) => {
-            return schemaRequestHandler(connection, uri, yamlSettings.workspaceFolders, yamlSettings.workspaceRoot, yamlSettings.useVSCodeContentRequest, exports.testFileSystem);
+            return schemaRequestHandler(connection, uri, yamlSettings.workspaceFolders, yamlSettings.workspaceRoot, yamlSettings.useVSCodeContentRequest);
         };
 
         const schemaRequestService = schemaRequestHandlerWrapper.bind(this, connection);
@@ -52,19 +64,7 @@ class SchemaUtils {
 
     static async validate(SCHEMA_ID, jsonSchema, yamlContent) {
 
-        let languageSettings = {
-            validate: true,
-            hover: false,
-            completion: true,
-            format: false,
-            isKubernetes: false,
-            schemas: [],
-            customTags: [],
-            indentation: undefined,
-            yamlVersion: "1.2",
-        };
-
-        const { languageService: langService, validationHandler: valHandler } = SchemaUtils.setupLanguageService(languageSettings);
+        const { languageService: langService, validationHandler: valHandler } = SchemaUtils.setupLanguageService();
 
         langService.deleteSchema(SCHEMA_ID);
         langService.addSchema(SCHEMA_ID, jsonSchema);
