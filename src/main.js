@@ -29,10 +29,10 @@ async function run() {
         }
 
         const jsonSchema = StringUtils.parseJSON("oi", FileUtils.getContent(jsonSchemaFile));
-        const yamlContent = FileUtils.getContent(yamlFiles);
+
 
         core.info(jsonSchema);
-        core.info(yamlContent);
+        // core.info(yamlContent);
 
         core.info("Analyzing files:");
 
@@ -40,11 +40,13 @@ async function run() {
 
         core.info(files);
 
-        SchemaUtils.validate("teste", jsonSchema, yamlContent);
+        // SchemaUtils.validate("teste", jsonSchema, yamlContent);
 
         let numberOfInvalidFiles = 0;
 
-        // files.forEach(file => {
+        files.forEach(file => {
+
+            const yamlContent = FileUtils.getContent(file);
 
         //     if (SchemaUtils.isValid(jsonSchemaFile, file)) {
         //         core.info(`✅ ${file}`);
@@ -52,7 +54,7 @@ async function run() {
         //         numberOfInvalidFiles++;
         //         core.info(`❌ ${file}`);
         //     }
-        // });
+        });
 
         if (numberOfInvalidFiles !== 0) {
             throw new Error(`It was found ${numberOfInvalidFiles} invalid files`);

@@ -6293,7 +6293,7 @@ exports.isSchema = function isSchema(val){
 var __webpack_unused_export__;
 
 
-var Validator = module.exports.Validator = __nccwpck_require__(669);
+var Validator = /* unused reexport */ __nccwpck_require__(669);
 
 /* unused reexport */ __nccwpck_require__(801).ValidatorResult;
 /* unused reexport */ __nccwpck_require__(801).ValidatorResultError;
@@ -11546,7 +11546,7 @@ var jsYaml = {
 	safeDump: safeDump
 };
 
-/* harmony default export */ const js_yaml = (jsYaml);
+/* harmony default export */ const js_yaml = ((/* unused pure expression or super */ null && (jsYaml)));
 
 
 // EXTERNAL MODULE: ./node_modules/jsonschema/lib/index.js
@@ -11624,7 +11624,7 @@ class SchemaUtils {
         // console.log(jsonSchema);
         let doc;
         try {
-            doc = js_yaml.load(yamlContent);
+            doc = yaml.load(yamlContent);
             // console.log(doc);
           } catch (e) {
             console.log(e);
@@ -11632,7 +11632,7 @@ class SchemaUtils {
 
 
 
-          var v = new lib.Validator();
+          var v = new Validator();
 
 
          return v.validate(doc, jsonSchema);
@@ -11648,7 +11648,7 @@ class SchemaUtils {
     }
 }
 
-/* harmony default export */ const schema_utils = (SchemaUtils);
+/* harmony default export */ const schema_utils = ((/* unused pure expression or super */ null && (SchemaUtils)));
 
 ;// CONCATENATED MODULE: ./src/main.js
 const main_core = __nccwpck_require__(186);
@@ -11682,10 +11682,10 @@ async function run() {
         }
 
         const jsonSchema = string_utils.parseJSON("oi", file_utils.getContent(jsonSchemaFile));
-        const yamlContent = file_utils.getContent(yamlFiles);
+
 
         main_core.info(jsonSchema);
-        main_core.info(yamlContent);
+        // core.info(yamlContent);
 
         main_core.info("Analyzing files:");
 
@@ -11693,11 +11693,13 @@ async function run() {
 
         main_core.info(files);
 
-        schema_utils.validate("teste", jsonSchema, yamlContent);
+        // SchemaUtils.validate("teste", jsonSchema, yamlContent);
 
         let numberOfInvalidFiles = 0;
 
-        // files.forEach(file => {
+        files.forEach(file => {
+
+            const yamlContent = file_utils.getContent(file);
 
         //     if (SchemaUtils.isValid(jsonSchemaFile, file)) {
         //         core.info(`✅ ${file}`);
@@ -11705,7 +11707,7 @@ async function run() {
         //         numberOfInvalidFiles++;
         //         core.info(`❌ ${file}`);
         //     }
-        // });
+        });
 
         if (numberOfInvalidFiles !== 0) {
             throw new Error(`It was found ${numberOfInvalidFiles} invalid files`);
