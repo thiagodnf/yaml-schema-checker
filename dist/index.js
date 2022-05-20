@@ -11312,11 +11312,15 @@ async function run() {
 
         const schemaContentAsJson = file_utils.getContentFromJson(jsonSchemaFile);
 
-        main_core.info("Analyzing files:");
+        main_core.info("Searching for files");
 
         const files = file_utils.searchFiles(yamlFiles);
 
+        main_core.info(`Found ${files.length} for files`);
+
         let numberOfInvalidFiles = 0;
+
+        main_core.info("Checking files:");
 
         files.forEach(file => {
 

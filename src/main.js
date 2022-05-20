@@ -32,11 +32,15 @@ async function run() {
 
         const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
 
-        core.info("Analyzing files:");
+        core.info("Searching for files");
 
         const files = FileUtils.searchFiles(yamlFiles);
 
+        core.info(`Found ${files.length} for files`);
+
         let numberOfInvalidFiles = 0;
+
+        core.info("Checking files:");
 
         files.forEach(file => {
 
