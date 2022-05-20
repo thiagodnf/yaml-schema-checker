@@ -28,7 +28,7 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        const jsonSchema = StringUtils.parseJSON(FileUtils.getContent(jsonSchemaFile));
+        const jsonSchema = StringUtils.parseJSON("oi", FileUtils.getContent(jsonSchemaFile));
         const yamlContent = FileUtils.getContent(yamlFiles);
 
         core.info(jsonSchema);
