@@ -11332,7 +11332,7 @@ async function run() {
                 numberOfInvalidFiles++;
 
                 result.errors.forEach(error => {
-                    main_core.info(`   - ${error.stack}`);
+                    main_core.info(`    - ${error.stack}`);
                 });
             }
         });

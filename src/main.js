@@ -52,7 +52,7 @@ async function run() {
                 numberOfInvalidFiles++;
 
                 result.errors.forEach(error => {
-                    core.info(`   - ${error.stack}`);
+                    core.info(`    - ${error.stack}`);
                 });
             }
         });
