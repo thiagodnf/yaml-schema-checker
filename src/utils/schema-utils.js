@@ -1,77 +1,96 @@
 
-import { SettingsState } from "yaml-language-server/lib/umd/yamlSettings";
-import { createConnection } from "vscode-languageserver/lib/node/main";
-import { schemaRequestHandler } from "yaml-language-server/lib/umd/languageservice/services/schemaRequestHandler";
-import { workspaceContext } from "yaml-language-server/lib/umd/languageservice/services/schemaRequestHandler";
-import { Telemetry } from "yaml-language-server/lib/umd/languageserver/telemetry";
-import { YAMLServerInit } from "yaml-language-server/lib/umd/yamlServerInit";
-import { ClientCapabilities } from "vscode-json-languageservice";
+// import { SettingsState } from "yaml-language-server/lib/umd/yamlSettings";
+// import { createConnection } from "vscode-languageserver/lib/node/main";
+// import { schemaRequestHandler } from "yaml-language-server/lib/umd/languageservice/services/schemaRequestHandler";
+// import { workspaceContext } from "yaml-language-server/lib/umd/languageservice/services/schemaRequestHandler";
+// import { Telemetry } from "yaml-language-server/lib/umd/languageserver/telemetry";
+// import { YAMLServerInit } from "yaml-language-server/lib/umd/yamlServerInit";
+// import { ClientCapabilities } from "vscode-json-languageservice";
 
-import StringUtils from "./string-utils";
+// import StringUtils from "./string-utils";
+
+import yaml from "js-yaml";
+import {Validator} from "jsonschema";
 
 class SchemaUtils {
 
-    static setupLanguageService() {
+    // static setupLanguageService() {
 
-        let languageSettings = {
-            validate: true,
-            hover: false,
-            completion: true,
-            format: false,
-            isKubernetes: false,
-            schemas: [],
-            customTags: [],
-            indentation: undefined,
-            yamlVersion: "1.2",
-        };
+    //     let languageSettings = {
+    //         validate: true,
+    //         hover: false,
+    //         completion: true,
+    //         format: false,
+    //         isKubernetes: false,
+    //         schemas: [],
+    //         customTags: [],
+    //         indentation: undefined,
+    //         yamlVersion: "1.2",
+    //     };
 
-        const yamlSettings = new SettingsState();
+    //     const yamlSettings = new SettingsState();
 
-        process.argv.push("--node-ipc");
+    //     process.argv.push("--node-ipc");
 
-        const connection = createConnection();
+    //     const connection = createConnection();
 
-        const schemaRequestHandlerWrapper = (connection, uri) => {
-            return schemaRequestHandler(connection, uri, yamlSettings.workspaceFolders, yamlSettings.workspaceRoot, yamlSettings.useVSCodeContentRequest);
-        };
+    //     const schemaRequestHandlerWrapper = (connection, uri) => {
+    //         return schemaRequestHandler(connection, uri, yamlSettings.workspaceFolders, yamlSettings.workspaceRoot, yamlSettings.useVSCodeContentRequest);
+    //     };
 
-        const schemaRequestService = schemaRequestHandlerWrapper.bind(this, connection);
+    //     const schemaRequestService = schemaRequestHandlerWrapper.bind(this, connection);
 
-        const telemetry = new Telemetry(connection);
-        const serverInit = new YAMLServerInit(connection, yamlSettings, workspaceContext, schemaRequestService, telemetry);
+    //     const telemetry = new Telemetry(connection);
+    //     const serverInit = new YAMLServerInit(connection, yamlSettings, workspaceContext, schemaRequestService, telemetry);
 
-        serverInit.connectionInitialized({
-            processId: null,
-            capabilities: ClientCapabilities.LATEST,
-            rootUri: null,
-            workspaceFolders: null,
-        });
+    //     serverInit.connectionInitialized({
+    //         processId: null,
+    //         capabilities: ClientCapabilities.LATEST,
+    //         rootUri: null,
+    //         workspaceFolders: null,
+    //     });
 
-        const languageService = serverInit.languageService;
-        const validationHandler = serverInit.validationHandler;
-        const languageHandler = serverInit.languageHandler;
+    //     const languageService = serverInit.languageService;
+    //     const validationHandler = serverInit.validationHandler;
+    //     const languageHandler = serverInit.languageHandler;
 
-        languageService.configure(languageSettings);
+    //     languageService.configure(languageSettings);
 
-        return {
-            languageService,
-            validationHandler,
-            languageHandler,
-            yamlSettings,
-            telemetry,
-        };
-    }
+    //     return {
+    //         languageService,
+    //         validationHandler,
+    //         languageHandler,
+    //         yamlSettings,
+    //         telemetry,
+    //     };
+    // }
 
     static async validate(SCHEMA_ID, jsonSchema, yamlContent) {
 
-        const { languageService: langService, validationHandler: valHandler } = SchemaUtils.setupLanguageService();
+        // console.log(jsonSchema);
+        let doc;
+        try {
+            doc = yaml.load(yamlContent);
+            // console.log(doc);
+          } catch (e) {
+            console.log(e);
+          }
 
-        langService.deleteSchema(SCHEMA_ID);
-        langService.addSchema(SCHEMA_ID, jsonSchema);
 
-        const testTextDocument = StringUtils.parseYaml(SCHEMA_ID, yamlContent);
 
-       return await valHandler.validateTextDocument(testTextDocument);
+          var v = new Validator();
+
+
+         return v.validate(doc, jsonSchema);
+
+    //     const { languageService: langService, validationHandler: valHandler } = SchemaUtils.setupLanguageService();
+
+    //     langService.deleteSchema(SCHEMA_ID);
+    //     langService.addSchema(SCHEMA_ID, jsonSchema);
+
+    //     const testTextDocument = StringUtils.parseYaml(SCHEMA_ID, yamlContent);
+
+    //    return await valHandler.validateTextDocument(testTextDocument);
     }
 }
 

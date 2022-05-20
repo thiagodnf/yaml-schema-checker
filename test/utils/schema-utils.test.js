@@ -19,7 +19,7 @@ test("should be a valid yml", async () => {
         foo: test
     `;
 
-    await expect((await SchemaUtils.validate( "defaut-1.yaml", jsonSchema, content)).length).toBe(0);
+    await expect((await SchemaUtils.validate( "defaut-1.yaml", jsonSchema, content)).errors.length).toBe(0);
 });
 
 test("should be a invalid yml", async () => {
@@ -35,5 +35,5 @@ test("should be a invalid yml", async () => {
 
     const content = "analytics: 122";
 
-    await expect((await SchemaUtils.validate("defaut-2.yaml", jsonSchema, content)).length).toBe(1);
+    await expect((await SchemaUtils.validate("defaut-2.yaml", jsonSchema, content)).errors.length).toBe(1);
 });
