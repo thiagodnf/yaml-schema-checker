@@ -28,6 +28,8 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
+        core.info(`Json Schema: ${jsonSchemaFile}`);
+
         const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
 
         core.info("Analyzing files:");
