@@ -47,8 +47,13 @@ async function run() {
             if (result.errors.length === 0) {
                 core.info(`✅ ${file}`);
             } else {
-                numberOfInvalidFiles++;
                 core.info(`❌ ${file}`);
+
+                numberOfInvalidFiles++;
+
+                result.errors.forEach(error => {
+                    core.info(`\t${error.message}`);
+                });
             }
         });
 
