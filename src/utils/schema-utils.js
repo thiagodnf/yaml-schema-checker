@@ -9,8 +9,9 @@
 
 // import StringUtils from "./string-utils";
 
-import yaml from "js-yaml";
 import {Validator} from "jsonschema";
+
+var v = new Validator();
 
 class SchemaUtils {
 
@@ -65,23 +66,10 @@ class SchemaUtils {
     //     };
     // }
 
-    static async validate(SCHEMA_ID, jsonSchema, yamlContent) {
-
-        // console.log(jsonSchema);
-        let doc;
-        try {
-            doc = yaml.load(yamlContent);
-            // console.log(doc);
-          } catch (e) {
-            console.log(e);
-          }
+    static async validate(schemaContentAsJson, yamlContentAsJson) {
 
 
-
-          var v = new Validator();
-
-
-         return v.validate(doc, jsonSchema);
+         return v.validate(yamlContentAsJson, schemaContentAsJson);
 
     //     const { languageService: langService, validationHandler: valHandler } = SchemaUtils.setupLanguageService();
 

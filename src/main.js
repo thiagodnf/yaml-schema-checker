@@ -28,32 +28,24 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        const jsonSchema = StringUtils.parseJSON("oi", FileUtils.getContent(jsonSchemaFile));
-
-
-        core.info(jsonSchema);
-        // core.info(yamlContent);
+        const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
 
         core.info("Analyzing files:");
 
         const files = FileUtils.searchFiles(yamlFiles);
 
-        core.info(files);
-
-        // SchemaUtils.validate("teste", jsonSchema, yamlContent);
-
         let numberOfInvalidFiles = 0;
 
         files.forEach(file => {
 
-            const yamlContent = FileUtils.getContent(file);
+            const yamlContentAsJson = FileUtils.getContentFromYaml(file);
 
-        //     if (SchemaUtils.isValid(jsonSchemaFile, file)) {
-        //         core.info(`✅ ${file}`);
-        //     } else {
-        //         numberOfInvalidFiles++;
-        //         core.info(`❌ ${file}`);
-        //     }
+            if (SchemaUtils.isValid(schemaContentAsJson, yamlContentAsJson)) {
+                core.info(`✅ ${file}`);
+            } else {
+                numberOfInvalidFiles++;
+                core.info(`❌ ${file}`);
+            }
         });
 
         if (numberOfInvalidFiles !== 0) {

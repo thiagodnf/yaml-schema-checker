@@ -1,5 +1,4 @@
-
-import { TextDocument } from "vscode-languageserver-textdocument";
+import yaml from "js-yaml";
 
 class StringUtils {
 
@@ -21,26 +20,30 @@ class StringUtils {
         return str.trim().length === 0;
     }
 
-    static parseJSON(fileUri, content) {
+    static parseJson(file, content) {
 
         if (StringUtils.isBlank(content)) {
-            throw new Error("json content is blank");
+            throw new Error("file content is blank");
         }
 
         try {
             return JSON.parse(content);
         } catch (ex) {
-            throw new Error(`${fileUri} is invalid. Reason: ${ex}`);
+            throw new Error(`${file} is invalid. Reason: ${ex}`);
         }
     }
 
-    static parseYaml(fileUri, content) {
+    static parseYaml(file, content) {
 
         if (StringUtils.isBlank(content)) {
-            throw new Error("yaml content is blank");
+            throw new Error("file content is blank");
         }
 
-        return TextDocument.create(fileUri, "yaml", 0, content);
+        try {
+            return yaml.load(content);
+        } catch (ex) {
+            throw new Error(`${file} is invalid. Reason: ${ex}`);
+        }
     }
 }
 

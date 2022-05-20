@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import process from "process";
 import { glob } from "glob";
+import StringUtils from "./string-utils";
 
 class FileUtils {
 
@@ -45,22 +46,19 @@ class FileUtils {
         return fs.readFileSync(filePath, { encoding });
     }
 
-    // static getYaml(file) {
+    static getContentFromJson(file, encoding = "utf-8") {
 
-    //     try {
+        const content = FileUtils.getContent(file, encoding);
 
-    //         const fileContents = FileUtils.getContent(file, "utf-8");
+        return StringUtils.parseJson(file, content);
+    }
 
-    //         return TextDocument.create(
-    //             path.join(FileUtils.getWorkspacePath(), file),
-    //             "yaml",
-    //             0,
-    //             fileContents
-    //         );
-    //     } catch (ex) {
-    //         throw new Error(ex);
-    //     }
-    // }
+    static getContentFromYaml(file, encoding = "utf-8") {
+
+        const content = FileUtils.getContent(file, encoding);
+
+        return StringUtils.parseYaml(file, content);
+    }
 }
 
 export default FileUtils;

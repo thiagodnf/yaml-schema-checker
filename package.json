@@ -6,7 +6,7 @@
     "author": "Thiago do N. Ferreira",
     "license": "MIT",
     "scripts": {
-        "dev": "nodemon --ignore dist/ --exec npm run prepare",
+        "dev": "nodemon --ignore dist/ --exec npm run all",
         "lint": "eslint .",
         "prepare": "ncc build src/main.js -o dist --source-map --license licenses.txt",
         "test": "jest ./test --coverage",

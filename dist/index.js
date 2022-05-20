@@ -6293,7 +6293,7 @@ exports.isSchema = function isSchema(val){
 var __webpack_unused_export__;
 
 
-var Validator = /* unused reexport */ __nccwpck_require__(669);
+var Validator = module.exports.Validator = __nccwpck_require__(669);
 
 /* unused reexport */ __nccwpck_require__(801).ValidatorResult;
 /* unused reexport */ __nccwpck_require__(801).ValidatorResultError;
@@ -7067,275 +7067,6 @@ exports.debug = debug; // for test
 
 /***/ }),
 
-/***/ 933:
-/***/ ((module, exports) => {
-
-(function (factory) {
-    if ( true && typeof module.exports === "object") {
-        var v = factory(require, exports);
-        if (v !== undefined) module.exports = v;
-    }
-    else if (typeof define === "function" && define.amd) {
-        define(["require", "exports"], factory);
-    }
-})(function () {
-    /* --------------------------------------------------------------------------------------------
-     * Copyright (c) Microsoft Corporation. All rights reserved.
-     * Licensed under the MIT License. See License.txt in the project root for license information.
-     * ------------------------------------------------------------------------------------------ */
-    'use strict';
-    Object.defineProperty(exports, "__esModule", ({ value: true }));
-    exports.TextDocument = void 0;
-    class FullTextDocument {
-        constructor(uri, languageId, version, content) {
-            this._uri = uri;
-            this._languageId = languageId;
-            this._version = version;
-            this._content = content;
-            this._lineOffsets = undefined;
-        }
-        get uri() {
-            return this._uri;
-        }
-        get languageId() {
-            return this._languageId;
-        }
-        get version() {
-            return this._version;
-        }
-        getText(range) {
-            if (range) {
-                const start = this.offsetAt(range.start);
-                const end = this.offsetAt(range.end);
-                return this._content.substring(start, end);
-            }
-            return this._content;
-        }
-        update(changes, version) {
-            for (let change of changes) {
-                if (FullTextDocument.isIncremental(change)) {
-                    // makes sure start is before end
-                    const range = getWellformedRange(change.range);
-                    // update content
-                    const startOffset = this.offsetAt(range.start);
-                    const endOffset = this.offsetAt(range.end);
-                    this._content = this._content.substring(0, startOffset) + change.text + this._content.substring(endOffset, this._content.length);
-                    // update the offsets
-                    const startLine = Math.max(range.start.line, 0);
-                    const endLine = Math.max(range.end.line, 0);
-                    let lineOffsets = this._lineOffsets;
-                    const addedLineOffsets = computeLineOffsets(change.text, false, startOffset);
-                    if (endLine - startLine === addedLineOffsets.length) {
-                        for (let i = 0, len = addedLineOffsets.length; i < len; i++) {
-                            lineOffsets[i + startLine + 1] = addedLineOffsets[i];
-                        }
-                    }
-                    else {
-                        if (addedLineOffsets.length < 10000) {
-                            lineOffsets.splice(startLine + 1, endLine - startLine, ...addedLineOffsets);
-                        }
-                        else { // avoid too many arguments for splice
-                            this._lineOffsets = lineOffsets = lineOffsets.slice(0, startLine + 1).concat(addedLineOffsets, lineOffsets.slice(endLine + 1));
-                        }
-                    }
-                    const diff = change.text.length - (endOffset - startOffset);
-                    if (diff !== 0) {
-                        for (let i = startLine + 1 + addedLineOffsets.length, len = lineOffsets.length; i < len; i++) {
-                            lineOffsets[i] = lineOffsets[i] + diff;
-                        }
-                    }
-                }
-                else if (FullTextDocument.isFull(change)) {
-                    this._content = change.text;
-                    this._lineOffsets = undefined;
-                }
-                else {
-                    throw new Error('Unknown change event received');
-                }
-            }
-            this._version = version;
-        }
-        getLineOffsets() {
-            if (this._lineOffsets === undefined) {
-                this._lineOffsets = computeLineOffsets(this._content, true);
-            }
-            return this._lineOffsets;
-        }
-        positionAt(offset) {
-            offset = Math.max(Math.min(offset, this._content.length), 0);
-            let lineOffsets = this.getLineOffsets();
-            let low = 0, high = lineOffsets.length;
-            if (high === 0) {
-                return { line: 0, character: offset };
-            }
-            while (low < high) {
-                let mid = Math.floor((low + high) / 2);
-                if (lineOffsets[mid] > offset) {
-                    high = mid;
-                }
-                else {
-                    low = mid + 1;
-                }
-            }
-            // low is the least x for which the line offset is larger than the current offset
-            // or array.length if no line offset is larger than the current offset
-            let line = low - 1;
-            return { line, character: offset - lineOffsets[line] };
-        }
-        offsetAt(position) {
-            let lineOffsets = this.getLineOffsets();
-            if (position.line >= lineOffsets.length) {
-                return this._content.length;
-            }
-            else if (position.line < 0) {
-                return 0;
-            }
-            let lineOffset = lineOffsets[position.line];
-            let nextLineOffset = (position.line + 1 < lineOffsets.length) ? lineOffsets[position.line + 1] : this._content.length;
-            return Math.max(Math.min(lineOffset + position.character, nextLineOffset), lineOffset);
-        }
-        get lineCount() {
-            return this.getLineOffsets().length;
-        }
-        static isIncremental(event) {
-            let candidate = event;
-            return candidate !== undefined && candidate !== null &&
-                typeof candidate.text === 'string' && candidate.range !== undefined &&
-                (candidate.rangeLength === undefined || typeof candidate.rangeLength === 'number');
-        }
-        static isFull(event) {
-            let candidate = event;
-            return candidate !== undefined && candidate !== null &&
-                typeof candidate.text === 'string' && candidate.range === undefined && candidate.rangeLength === undefined;
-        }
-    }
-    var TextDocument;
-    (function (TextDocument) {
-        /**
-         * Creates a new text document.
-         *
-         * @param uri The document's uri.
-         * @param languageId  The document's language Id.
-         * @param version The document's initial version number.
-         * @param content The document's content.
-         */
-        function create(uri, languageId, version, content) {
-            return new FullTextDocument(uri, languageId, version, content);
-        }
-        TextDocument.create = create;
-        /**
-         * Updates a TextDocument by modifying its content.
-         *
-         * @param document the document to update. Only documents created by TextDocument.create are valid inputs.
-         * @param changes the changes to apply to the document.
-         * @param version the changes version for the document.
-         * @returns The updated TextDocument. Note: That's the same document instance passed in as first parameter.
-         *
-         */
-        function update(document, changes, version) {
-            if (document instanceof FullTextDocument) {
-                document.update(changes, version);
-                return document;
-            }
-            else {
-                throw new Error('TextDocument.update: document must be created by TextDocument.create');
-            }
-        }
-        TextDocument.update = update;
-        function applyEdits(document, edits) {
-            let text = document.getText();
-            let sortedEdits = mergeSort(edits.map(getWellformedEdit), (a, b) => {
-                let diff = a.range.start.line - b.range.start.line;
-                if (diff === 0) {
-                    return a.range.start.character - b.range.start.character;
-                }
-                return diff;
-            });
-            let lastModifiedOffset = 0;
-            const spans = [];
-            for (const e of sortedEdits) {
-                let startOffset = document.offsetAt(e.range.start);
-                if (startOffset < lastModifiedOffset) {
-                    throw new Error('Overlapping edit');
-                }
-                else if (startOffset > lastModifiedOffset) {
-                    spans.push(text.substring(lastModifiedOffset, startOffset));
-                }
-                if (e.newText.length) {
-                    spans.push(e.newText);
-                }
-                lastModifiedOffset = document.offsetAt(e.range.end);
-            }
-            spans.push(text.substr(lastModifiedOffset));
-            return spans.join('');
-        }
-        TextDocument.applyEdits = applyEdits;
-    })(TextDocument = exports.TextDocument || (exports.TextDocument = {}));
-    function mergeSort(data, compare) {
-        if (data.length <= 1) {
-            // sorted
-            return data;
-        }
-        const p = (data.length / 2) | 0;
-        const left = data.slice(0, p);
-        const right = data.slice(p);
-        mergeSort(left, compare);
-        mergeSort(right, compare);
-        let leftIdx = 0;
-        let rightIdx = 0;
-        let i = 0;
-        while (leftIdx < left.length && rightIdx < right.length) {
-            let ret = compare(left[leftIdx], right[rightIdx]);
-            if (ret <= 0) {
-                // smaller_equal -> take left to preserve order
-                data[i++] = left[leftIdx++];
-            }
-            else {
-                // greater -> take right
-                data[i++] = right[rightIdx++];
-            }
-        }
-        while (leftIdx < left.length) {
-            data[i++] = left[leftIdx++];
-        }
-        while (rightIdx < right.length) {
-            data[i++] = right[rightIdx++];
-        }
-        return data;
-    }
-    function computeLineOffsets(text, isAtLineStart, textOffset = 0) {
-        const result = isAtLineStart ? [textOffset] : [];
-        for (let i = 0; i < text.length; i++) {
-            let ch = text.charCodeAt(i);
-            if (ch === 13 /* CarriageReturn */ || ch === 10 /* LineFeed */) {
-                if (ch === 13 /* CarriageReturn */ && i + 1 < text.length && text.charCodeAt(i + 1) === 10 /* LineFeed */) {
-                    i++;
-                }
-                result.push(textOffset + i + 1);
-            }
-        }
-        return result;
-    }
-    function getWellformedRange(range) {
-        const start = range.start;
-        const end = range.end;
-        if (start.line > end.line || (start.line === end.line && start.character > end.character)) {
-            return { start: end, end: start };
-        }
-        return range;
-    }
-    function getWellformedEdit(textEdit) {
-        const range = getWellformedRange(textEdit.range);
-        if (range !== textEdit.range) {
-            return { newText: textEdit.newText, range };
-        }
-        return textEdit;
-    }
-});
-
-
-/***/ }),
-
 /***/ 940:
 /***/ ((module) => {
 
@@ -7577,125 +7308,6 @@ const external_process_namespaceObject = require("process");
 var external_process_default = /*#__PURE__*/__nccwpck_require__.n(external_process_namespaceObject);
 // EXTERNAL MODULE: ./node_modules/glob/glob.js
 var glob = __nccwpck_require__(957);
-;// CONCATENATED MODULE: ./src/utils/file-utils.js
-
-
-
-
-
-class FileUtils {
-
-    static isWorkspaceEmpty() {
-
-        return FileUtils.isEmpty(FileUtils.getWorkspacePath());
-    }
-
-    static getWorkspacePath() {
-
-        return (external_process_default()).env.GITHUB_WORKSPACE || "";
-    }
-
-    static exists(fileOrPath) {
-
-        return external_fs_default().existsSync(fileOrPath);
-    }
-
-    static searchFiles(pattern) {
-
-        const options = {
-            cwd: FileUtils.getWorkspacePath()
-        };
-
-        return glob.glob.sync(pattern, options);
-    }
-
-    static isEmpty(path) {
-
-        if (!FileUtils.exists(path)) {
-            throw new Error(`${path} does not exist`);
-        }
-
-        return external_fs_default().readdirSync(path).length === 0;
-    }
-
-    static getContent(file, encoding = "utf-8") {
-
-        const filePath = external_path_default().join(FileUtils.getWorkspacePath(), file);
-
-        return external_fs_default().readFileSync(filePath, { encoding });
-    }
-
-    // static getYaml(file) {
-
-    //     try {
-
-    //         const fileContents = FileUtils.getContent(file, "utf-8");
-
-    //         return TextDocument.create(
-    //             path.join(FileUtils.getWorkspacePath(), file),
-    //             "yaml",
-    //             0,
-    //             fileContents
-    //         );
-    //     } catch (ex) {
-    //         throw new Error(ex);
-    //     }
-    // }
-}
-
-/* harmony default export */ const file_utils = (FileUtils);
-
-// EXTERNAL MODULE: ./node_modules/vscode-languageserver-textdocument/lib/umd/main.js
-var main = __nccwpck_require__(933);
-;// CONCATENATED MODULE: ./src/utils/string-utils.js
-
-
-
-class StringUtils {
-
-    static isString(str) {
-
-        return typeof str === "string" || str instanceof String;
-    }
-
-    static isBlank(str) {
-
-        if (!str) {
-            return true;
-        }
-
-        if (!StringUtils.isString(str)) {
-            return false;
-        }
-
-        return str.trim().length === 0;
-    }
-
-    static parseJSON(fileUri, content) {
-
-        if (StringUtils.isBlank(content)) {
-            throw new Error("json content is blank");
-        }
-
-        try {
-            return JSON.parse(content);
-        } catch (ex) {
-            throw new Error(`${fileUri} is invalid. Reason: ${ex}`);
-        }
-    }
-
-    static parseYaml(fileUri, content) {
-
-        if (StringUtils.isBlank(content)) {
-            throw new Error("yaml content is blank");
-        }
-
-        return main.TextDocument.create(fileUri, "yaml", 0, content);
-    }
-}
-
-/* harmony default export */ const string_utils = (StringUtils);
-
 ;// CONCATENATED MODULE: ./node_modules/js-yaml/dist/js-yaml.mjs
 
 /*! js-yaml 4.1.0 https://github.com/nodeca/js-yaml @license MIT */
@@ -11546,8 +11158,126 @@ var jsYaml = {
 	safeDump: safeDump
 };
 
-/* harmony default export */ const js_yaml = ((/* unused pure expression or super */ null && (jsYaml)));
+/* harmony default export */ const js_yaml = (jsYaml);
 
+
+;// CONCATENATED MODULE: ./src/utils/string-utils.js
+
+
+class StringUtils {
+
+    static isString(str) {
+
+        return typeof str === "string" || str instanceof String;
+    }
+
+    static isBlank(str) {
+
+        if (!str) {
+            return true;
+        }
+
+        if (!StringUtils.isString(str)) {
+            return false;
+        }
+
+        return str.trim().length === 0;
+    }
+
+    static parseJson(file, content) {
+
+        if (StringUtils.isBlank(content)) {
+            throw new Error("file content is blank");
+        }
+
+        try {
+            return JSON.parse(content);
+        } catch (ex) {
+            throw new Error(`${file} is invalid. Reason: ${ex}`);
+        }
+    }
+
+    static parseYaml(file, content) {
+
+        if (StringUtils.isBlank(content)) {
+            throw new Error("file content is blank");
+        }
+
+        try {
+            return js_yaml.load(content);
+        } catch (ex) {
+            throw new Error(`${file} is invalid. Reason: ${ex}`);
+        }
+    }
+}
+
+/* harmony default export */ const string_utils = (StringUtils);
+
+;// CONCATENATED MODULE: ./src/utils/file-utils.js
+
+
+
+
+
+
+class FileUtils {
+
+    static isWorkspaceEmpty() {
+
+        return FileUtils.isEmpty(FileUtils.getWorkspacePath());
+    }
+
+    static getWorkspacePath() {
+
+        return (external_process_default()).env.GITHUB_WORKSPACE || "";
+    }
+
+    static exists(fileOrPath) {
+
+        return external_fs_default().existsSync(fileOrPath);
+    }
+
+    static searchFiles(pattern) {
+
+        const options = {
+            cwd: FileUtils.getWorkspacePath()
+        };
+
+        return glob.glob.sync(pattern, options);
+    }
+
+    static isEmpty(path) {
+
+        if (!FileUtils.exists(path)) {
+            throw new Error(`${path} does not exist`);
+        }
+
+        return external_fs_default().readdirSync(path).length === 0;
+    }
+
+    static getContent(file, encoding = "utf-8") {
+
+        const filePath = external_path_default().join(FileUtils.getWorkspacePath(), file);
+
+        return external_fs_default().readFileSync(filePath, { encoding });
+    }
+
+    static getContentFromJson(file, encoding = "utf-8") {
+
+        const content = FileUtils.getContent(file, encoding);
+
+        return string_utils.parseJson(file, content);
+    }
+
+    static getContentFromYaml(file, encoding = "utf-8") {
+
+        const content = FileUtils.getContent(file, encoding);
+
+        return string_utils.parseYaml(file, content);
+    }
+}
+
+/* harmony default export */ const file_utils = (FileUtils);
 
 // EXTERNAL MODULE: ./node_modules/jsonschema/lib/index.js
 var lib = __nccwpck_require__(978);
@@ -11565,6 +11295,7 @@ var lib = __nccwpck_require__(978);
 
 
 
+var v = new lib.Validator();
 
 class SchemaUtils {
 
@@ -11619,23 +11350,10 @@ class SchemaUtils {
     //     };
     // }
 
-    static async validate(SCHEMA_ID, jsonSchema, yamlContent) {
-
-        // console.log(jsonSchema);
-        let doc;
-        try {
-            doc = yaml.load(yamlContent);
-            // console.log(doc);
-          } catch (e) {
-            console.log(e);
-          }
+    static async validate(schemaContentAsJson, yamlContentAsJson) {
 
 
-
-          var v = new Validator();
-
-
-         return v.validate(doc, jsonSchema);
+         return v.validate(yamlContentAsJson, schemaContentAsJson);
 
     //     const { languageService: langService, validationHandler: valHandler } = SchemaUtils.setupLanguageService();
 
@@ -11648,7 +11366,7 @@ class SchemaUtils {
     }
 }
 
-/* harmony default export */ const schema_utils = ((/* unused pure expression or super */ null && (SchemaUtils)));
+/* harmony default export */ const schema_utils = (SchemaUtils);
 
 ;// CONCATENATED MODULE: ./src/main.js
 const main_core = __nccwpck_require__(186);
@@ -11681,32 +11399,24 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        const jsonSchema = string_utils.parseJSON("oi", file_utils.getContent(jsonSchemaFile));
-
-
-        main_core.info(jsonSchema);
-        // core.info(yamlContent);
+        const schemaContentAsJson = file_utils.getContentFromJson(jsonSchemaFile);
 
         main_core.info("Analyzing files:");
 
         const files = file_utils.searchFiles(yamlFiles);
 
-        main_core.info(files);
-
-        // SchemaUtils.validate("teste", jsonSchema, yamlContent);
-
         let numberOfInvalidFiles = 0;
 
         files.forEach(file => {
 
-            const yamlContent = file_utils.getContent(file);
+            const yamlContentAsJson = file_utils.getContentFromYaml(file);
 
-        //     if (SchemaUtils.isValid(jsonSchemaFile, file)) {
-        //         core.info(`✅ ${file}`);
-        //     } else {
-        //         numberOfInvalidFiles++;
-        //         core.info(`❌ ${file}`);
-        //     }
+            if (schema_utils.isValid(schemaContentAsJson, yamlContentAsJson)) {
+                main_core.info(`✅ ${file}`);
+            } else {
+                numberOfInvalidFiles++;
+                main_core.info(`❌ ${file}`);
+            }
         });
 
         if (numberOfInvalidFiles !== 0) {

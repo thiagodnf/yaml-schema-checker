@@ -34,12 +34,12 @@ test("should be a blank string", async () => {
 
 test("should return a valid json object from json content", async () => {
 
-    await expect(StringUtils.parseJSON("fake.json", "{}")).toEqual({});
-    await expect(StringUtils.parseJSON("fake.json", "{\"one\": 1, \"two\": 2}")).toEqual({one: 1, two: 2});
+    await expect(StringUtils.parseJson("fake.json", "{}")).toEqual({});
+    await expect(StringUtils.parseJson("fake.json", "{\"one\": 1, \"two\": 2}")).toEqual({one: 1, two: 2});
 
-    await expect(() => StringUtils.parseJSON("fake.json", "")).toThrow(Error);
-    await expect(() => StringUtils.parseJSON("fake.json", "  ")).toThrow(Error);
-    await expect(() => StringUtils.parseJSON("fake.json", "{one: 1, two: 2}")).toThrow(Error);
+    await expect(() => StringUtils.parseJson("fake.json", "")).toThrow(Error);
+    await expect(() => StringUtils.parseJson("fake.json", "  ")).toThrow(Error);
+    await expect(() => StringUtils.parseJson("fake.json", "{one: 1, two: 2}")).toThrow(Error);
 });
 
 test("should return a valid yaml object from json content", async () => {
