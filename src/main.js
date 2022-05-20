@@ -34,7 +34,7 @@ async function run() {
 
         const files = FileUtils.searchFiles(yamlFiles);
 
-        core.info(`Found ${files.length} file(s). Checking them`);
+        core.info(`Found ${files.length} file(s). Checking them:`);
 
         let numberOfInvalidFiles = 0;
 
@@ -60,7 +60,7 @@ async function run() {
         core.info("Done");
 
         if (numberOfInvalidFiles !== 0) {
-            throw new Error(`It was found ${numberOfInvalidFiles} invalid files`);
+            throw new Error(`It was found ${numberOfInvalidFiles} invalid file(s)`);
         }
 
         core.setOutput("numberOfInvalidFiles", numberOfInvalidFiles);
