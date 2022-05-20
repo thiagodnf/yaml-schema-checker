@@ -2,6 +2,7 @@
     "name": "yaml-schema-checker",
     "version": "0.0.2",
     "description": "Validate .yaml files using JSON schemas",
+    "homepage": "https://github.com/thiagodonferreira/yaml-schema-checker",
     "main": "src/main.js",
     "author": "Thiago do N. Ferreira",
     "license": "MIT",
@@ -26,7 +27,9 @@
     "bugs": {
         "url": "https://github.com/thiagodonferreira/yaml-schema-checker/issues"
     },
-    "homepage": "https://github.com/thiagodonferreira/yaml-schema-checker",
+    "engines" : {
+        "node" : ">=16.15.0"
+    },
     "dependencies": {
         "@actions/core": "1.8.2",
         "glob": "8.0.3",
