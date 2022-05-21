@@ -1,5 +1,4 @@
-![logo-2](https://user-images.githubusercontent.com/98138701/169629539-75a2eaed-3587-40c0-8d6a-f0acadd13913.png)
-
+<img src="https://user-images.githubusercontent.com/98138701/169650464-ac7e1d8a-0050-4368-9331-2b3645cfc994.png" width="50%"/>
 
 # Create a JavaScript Action
 
