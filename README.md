@@ -24,16 +24,16 @@ with:
 
 ```bash
 Run thiagodonferreira/yaml-schema-checker@main
-Json Schema: schemas/deadlines.schema.json
-Yaml Files: data/deadlines/events/**/*.yml
+Json Schema: schemas/example.schema.json
+Yaml Files: folder/subfolder/**/*.yml
 Found 4 file(s). Checking them:
-❌ data/deadlines/events/2022/ase-22.yml
+❌ data/deadlines/events/fake1.yml
     - instance.type is not one of enum values: conference,workshop,symposium
-✅ data/deadlines/events/2022/ase-23.yml
-❌ data/deadlines/events/2022/ase-24.yml
+✅ data/deadlines/events/fake2.yml
+❌ data/deadlines/events/fake3.yml
     - instance.id is not of a type(s) string
     - instance.type is not one of enum values: conference,workshop,symposium
-❌ data/deadlines/events/2022/ase-25.yml
+❌ data/deadlines/events/fake4.yml
     - instance.title is not of a type(s) string
 Done. All files checked
 
