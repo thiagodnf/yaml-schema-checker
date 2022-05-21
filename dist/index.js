@@ -11316,7 +11316,8 @@ async function run() {
 
         main_core.info(`Found ${files.length} file(s). Checking them:`);
 
-        let numberOfInvalidFiles = 0;
+        let validFiles = [];
+        let invalidFiles = [];
 
         files.forEach(file => {
 
@@ -11326,10 +11327,12 @@ async function run() {
 
             if (result.errors.length === 0) {
                 main_core.info(`✅ ${file}`);
+
+                validFiles.push(file);
             } else {
                 main_core.info(`❌ ${file}`);
 
-                numberOfInvalidFiles++;
+                invalidFiles.push(file);
 
                 result.errors.forEach(error => {
                     main_core.info(`    - ${error.stack}`);
@@ -11339,11 +11342,12 @@ async function run() {
 
         main_core.info("Done");
 
-        if (numberOfInvalidFiles !== 0) {
-            throw new Error(`It was found ${numberOfInvalidFiles} invalid file(s)`);
-        }
+        main_core.setOutput("validFiles", validFiles);
+        main_core.setOutput("invalidFiles", invalidFiles);
 
-        main_core.setOutput("numberOfInvalidFiles", numberOfInvalidFiles);
+        if (invalidFiles.length !== 0) {
+            throw new Error(`It was found ${invalidFiles.length} invalid file(s)`);
+        }
 
     } catch (error) {
         main_core.setFailed(error.message);

@@ -11,8 +11,10 @@ inputs:
     description: "yamlFiles"
     required: true
 outputs:
-  numberOfInvalidFiles: # output will be available to future steps
-    description: "The number of invalid files"
+  validFiles:
+    description: Comma separated list of files that passed
+  invalidFiles:
+    description: Comma separated list of files that failed
 runs:
   using: "node16"
   main: "dist/index.js"

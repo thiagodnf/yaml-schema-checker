@@ -1,5 +1,7 @@
 <img src="https://user-images.githubusercontent.com/98138701/169650464-ac7e1d8a-0050-4368-9331-2b3645cfc994.png" width="276px"/>
 
+A Github action for checking .yaml files using JSON schemas
+
 # Create a JavaScript Action
 
 <p align="center">
@@ -105,14 +107,15 @@ Your action is now published! :rocket:
 
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
 
-## Usage
+# Usage
 
-You can now consume the action by referencing the v1 branch
+You can now consume the action by referencing the available version.
 
 ```yaml
-uses: actions/javascript-action@v1
+uses: thiagodonferreira/yaml-schema-checker@0.0.4
 with:
-  milliseconds: 1000
+  jsonSchemaFile: schemas/example.schema.json
+  yamlFiles: folder/subfolder/**/*.yml
 ```
 
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
+# For Developers
