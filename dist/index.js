@@ -11339,6 +11339,7 @@ async function run() {
                 });
             }
         });
+        main_core.info("Done. All files checked");
 
         main_core.setOutput("validFiles", validFiles.join(","));
         main_core.setOutput("invalidFiles", invalidFiles.join(","));
@@ -11346,8 +11347,6 @@ async function run() {
         if (invalidFiles.length !== 0) {
             throw new Error(`It was found ${invalidFiles.length} invalid file(s)`);
         }
-
-        main_core.info("Done. Validation completed successfully");
 
     } catch (error) {
         main_core.setFailed(error.message);
