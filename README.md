@@ -8,6 +8,18 @@ A Github action for checking .yaml files using JSON schemas
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
+# Usage
+
+You can now consume the action by referencing the available version.
+
+```yaml
+uses: thiagodonferreira/yaml-schema-checker@0.0.4
+with:
+  jsonSchemaFile: schemas/example.schema.json
+  yamlFiles: folder/subfolder/**/*.yml
+```
+
+
 # Create a JavaScript Action
 
 <p align="center">
@@ -113,15 +125,5 @@ Your action is now published! :rocket:
 
 See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
 
-# Usage
-
-You can now consume the action by referencing the available version.
-
-```yaml
-uses: thiagodonferreira/yaml-schema-checker@0.0.4
-with:
-  jsonSchemaFile: schemas/example.schema.json
-  yamlFiles: folder/subfolder/**/*.yml
-```
 
 # For Developers
