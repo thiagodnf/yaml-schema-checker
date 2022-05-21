@@ -2,6 +2,12 @@
 
 A Github action for checking .yaml files using JSON schemas
 
+[![GitHub Release](https://img.shields.io/github/release/thiagodonferreira/yaml-schema-checker.svg)](https://github.com/thiagodonferreira/yaml-schema-checker/releases/latest)
+[![GitHub contributors](https://img.shields.io/github/contributors/thiagodonferreira/yaml-schema-checker.svg)](https://github.com/thiagodonferreira/yaml-schema-checker/graphs/contributors)
+[![GitHub stars](https://img.shields.io/github/stars/thiagodonferreira/yaml-schema-checker.svg)](https://github.com/thiagodonferreira/yaml-schema-checker)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+
 # Create a JavaScript Action
 
 <p align="center">
