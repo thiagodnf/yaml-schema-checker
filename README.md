@@ -2,6 +2,7 @@
 
 A Github action for checking .yaml files using JSON schemas
 
+[![Build](https://github.com/thiagodonferreira/yaml-schema-checker/actions/workflows/build.yml/badge.svg)](https://github.com/thiagodonferreira/yaml-schema-checker/actions/workflows/build.yml)
 [![GitHub Release](https://img.shields.io/github/release/thiagodonferreira/yaml-schema-checker.svg)](https://github.com/thiagodonferreira/yaml-schema-checker/releases/latest)
 [![GitHub contributors](https://img.shields.io/github/contributors/thiagodonferreira/yaml-schema-checker.svg)](https://github.com/thiagodonferreira/yaml-schema-checker/graphs/contributors)
 [![GitHub stars](https://img.shields.io/github/stars/thiagodonferreira/yaml-schema-checker.svg)](https://github.com/thiagodonferreira/yaml-schema-checker)
