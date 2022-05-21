@@ -17,4 +17,4 @@ jobs:
           ${{ steps.yarn-cache-dir-path.outputs.dir }}
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
     - uses: actions/checkout@v3
-    - run: npm all
+    - run: npm run all
