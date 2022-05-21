@@ -1,7 +1,18 @@
-// import FileUtils from "../../src/utils/file-utils";
+import os from "os";
+import process from "process";
 
-test("should be a valid string sdf", async () => {
+import FileUtils from "../../src/utils/file-utils";
 
+test("should return empty if workspace path is not provided", async () => {
 
-    await expect(1).toBe(1);
+    expect(FileUtils.getWorkspacePath()).toBe("");
+});
+
+test("should return a valid workspace path", async () => {
+
+    const tempDir = os.tmpdir();
+
+    process.env["GITHUB_WORKSPACE"] = tempDir;
+
+    expect(FileUtils.getWorkspacePath()).toBe(tempDir);
 });
