@@ -1,4 +1,5 @@
-![logo](https://user-images.githubusercontent.com/98138701/169629462-b64d92a0-663d-4bac-9266-e32ee92ab1ea.png)
+![logo-2](https://user-images.githubusercontent.com/98138701/169629539-75a2eaed-3587-40c0-8d6a-f0acadd13913.png)
+
 
 # Create a JavaScript Action
 
