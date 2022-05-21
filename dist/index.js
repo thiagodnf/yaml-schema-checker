@@ -11342,8 +11342,8 @@ async function run() {
 
         main_core.info("Done");
 
-        main_core.setOutput("validFiles", validFiles);
-        main_core.setOutput("invalidFiles", invalidFiles);
+        main_core.setOutput("validFiles", validFiles.join(","));
+        main_core.setOutput("invalidFiles", invalidFiles.join(","));
 
         if (invalidFiles.length !== 0) {
             throw new Error(`It was found ${invalidFiles.length} invalid file(s)`);
