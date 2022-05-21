@@ -1,3 +1,5 @@
+![logo](https://user-images.githubusercontent.com/98138701/169629462-b64d92a0-663d-4bac-9266-e32ee92ab1ea.png)
+
 # Create a JavaScript Action
 
 <p align="center">
