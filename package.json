@@ -1,7 +1,7 @@
 {
     "name": "yaml-schema-checker",
-    "version": "0.0.2",
-    "description": "Validate .yaml files using JSON schemas",
+    "version": "0.0.4",
+    "description": "A Github action for checking .yaml files using JSON schemas",
     "homepage": "https://github.com/thiagodonferreira/yaml-schema-checker",
     "main": "src/main.js",
     "author": "Thiago do N. Ferreira",
