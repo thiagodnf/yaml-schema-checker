@@ -9,7 +9,7 @@ A Github action for checking .yaml files using JSON schemas
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
-# Usage
+## Usage
 
 You can now consume the action by referencing the available version.
 
@@ -20,7 +20,27 @@ with:
   yamlFiles: folder/subfolder/**/*.yml
 ```
 
-# For Developers
+## Output
+
+```bash
+Run thiagodonferreira/yaml-schema-checker@main
+Json Schema: schemas/deadlines.schema.json
+Yaml Files: data/deadlines/events/**/*.yml
+Found 4 file(s). Checking them:
+❌ data/deadlines/events/2022/ase-22.yml
+    - instance.type is not one of enum values: conference,workshop,symposium
+✅ data/deadlines/events/2022/ase-23.yml
+❌ data/deadlines/events/2022/ase-24.yml
+    - instance.id is not of a type(s) string
+    - instance.type is not one of enum values: conference,workshop,symposium
+❌ data/deadlines/events/2022/ase-25.yml
+    - instance.title is not of a type(s) string
+Done. All files checked
+
+Error: It was found 3 invalid file(s)
+```
+
+## For Developers
 
 Install the dependencies
 
@@ -34,20 +54,19 @@ Run the development enviroment
 npm run dev
 ```
 
-# Questions or Suggestions
+## Questions or Suggestions
 
 Feel free to access the <a href="../../discussions">discussions tab</a> as you need
 
-# Contribute
+## Contribute
 
 Contributions to the this project are very welcome! We can't do this alone! Feel free to fork this project, work on it and then make a pull request.
 
-
-# License
+## License
 
 Licensed under the [MIT license](LICENSE).
 
-# Donate
+## Donate
 
 I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously, this takes time. You can integrate and use these projects in your applications for free! You can even change the source code and redistribute (even resell it).
 
