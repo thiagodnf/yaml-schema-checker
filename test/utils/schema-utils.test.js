@@ -42,3 +42,17 @@ test("should be a invalid yml", async () => {
 
     await expect((SchemaUtils.validate(jsonSchema, contentAsJson)).errors.length).toBe(1);
 });
+
+test("should throw exception when the parameters are invalid ones", async () => {
+
+    const fakeJsonSchema = {};
+    const fakeYaml = {};
+
+    await expect(() => SchemaUtils.validate(null, null)).toThrow(Error);
+    await expect(() => SchemaUtils.validate(null, fakeYaml)).toThrow(Error);
+    await expect(() => SchemaUtils.validate(fakeJsonSchema, null)).toThrow(Error);
+
+    await expect(() => SchemaUtils.validate(undefined, undefined)).toThrow(Error);
+    await expect(() => SchemaUtils.validate(undefined, fakeYaml)).toThrow(Error);
+    await expect(() => SchemaUtils.validate(fakeJsonSchema, undefined)).toThrow(Error);
+});

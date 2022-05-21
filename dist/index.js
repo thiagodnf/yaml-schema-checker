@@ -11271,6 +11271,14 @@ class SchemaUtils {
 
     static validate(schemaContentAsJson, yamlContentAsJson) {
 
+        if (!schemaContentAsJson) {
+            throw new Error("schemaContentAsJson is required");
+        }
+
+        if (!yamlContentAsJson) {
+            throw new Error("yamlContentAsJson is required");
+        }
+
         return new lib.Validator().validate(yamlContentAsJson, schemaContentAsJson);
     }
 }
