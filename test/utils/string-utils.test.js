@@ -34,7 +34,7 @@ test("should be a blank string", async () => {
 
 test("should return a valid json object from json content", async () => {
 
-    await expect(StringUtils.parseJson("fake.json", "{}")).toEqual({});
+    await expect(StringUtils.parseJson("fake.json", "{}")).toEqual(2);
     await expect(StringUtils.parseJson("fake.json", "{\"one\": 1, \"two\": 2}")).toEqual({one: 1, two: 2});
 
     await expect(() => StringUtils.parseJson("fake.json", "")).toThrow(Error);
