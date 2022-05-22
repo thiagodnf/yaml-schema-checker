@@ -1,6 +1,6 @@
 <img src="https://user-images.githubusercontent.com/98138701/169650464-ac7e1d8a-0050-4368-9331-2b3645cfc994.png" width="276px"/>
 
-A Github action for checking .yaml files using JSON schemas
+A Github action for validating .yaml files using JSON schemas
 
 [![Build](https://github.com/thiagodonferreira/yaml-schema-checker/actions/workflows/build.yml/badge.svg)](https://github.com/thiagodonferreira/yaml-schema-checker/actions/workflows/build.yml)
 [![GitHub Release](https://img.shields.io/github/release/thiagodonferreira/yaml-schema-checker.svg)](https://github.com/thiagodonferreira/yaml-schema-checker/releases/latest)
