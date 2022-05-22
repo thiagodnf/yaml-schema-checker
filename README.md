@@ -20,20 +20,42 @@ with:
   yamlFiles: folder/subfolder/**/*.yml
 ```
 
-## Output
+## Input
+
+### `jsonSchemaFile`
+
+**Required** A JSON schema file following the format used at https://www.schemastore.org
+
+### `yamlFiles`
+
+**Required** List of files to be validated
+
+## Outputs
+
+### `validFiles`
+
+Comma separated list of files that passed
+
+### `invalidFiles`
+
+Comma separated list of files that failed
+
+## Log
+
+If you run this GitHub Actions, this is what the log information looks like:
 
 ```bash
 Run thiagodonferreira/yaml-schema-checker@main
 Json Schema: schemas/example.schema.json
 Yaml Files: folder/subfolder/**/*.yml
 Found 4 file(s). Checking them:
-❌ data/deadlines/events/fake1.yml
+❌ folder/subfolder/events/fake1.yml
     - instance.type is not one of enum values: conference,workshop,symposium
-✅ data/deadlines/events/fake2.yml
-❌ data/deadlines/events/fake3.yml
+✅ folder/subfolder/events/fake2.yml
+❌ folder/subfolder/events/fake3.yml
     - instance.id is not of a type(s) string
     - instance.type is not one of enum values: conference,workshop,symposium
-❌ data/deadlines/events/fake4.yml
+❌ folder/subfolder/events/fake4.yml
     - instance.title is not of a type(s) string
 Done. All files checked
 

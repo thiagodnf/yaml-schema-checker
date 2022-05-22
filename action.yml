@@ -1,14 +1,14 @@
-name: "yaml-schema-checker"
-description: "A Github action for checking .yaml files using JSON schemas"
+name: yaml-schema-checker
+description: A Github action for checking .yaml files using JSON schemas
 branding:
-  icon: "check-square"
-  color: "blue"
+  icon: check-square
+  color: blue
 inputs:
   jsonSchemaFile:
-    description: "jsonSchemaFile"
+    description: A JSON schema file following the format used at https://www.schemastore.org
     required: true
   yamlFiles:
-    description: "yamlFiles"
+    description: List of files to be validated
     required: true
 outputs:
   validFiles:
