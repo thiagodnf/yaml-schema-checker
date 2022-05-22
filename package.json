@@ -1,7 +1,7 @@
 {
     "name": "yaml-schema-checker",
     "version": "0.0.4",
-    "description": "A Github action for checking .yaml files using JSON schemas",
+    "description": "A Github action for validating .yaml files using JSON schemas",
     "homepage": "https://github.com/thiagodonferreira/yaml-schema-checker",
     "main": "src/main.js",
     "author": "Thiago do N. Ferreira",
@@ -18,7 +18,8 @@
         "url": "git+https://github.com/thiagodonferreira/yaml-schema-checker.git"
     },
     "keywords": [
-        "validation",
+        "validator",
+        "checker",
         "yaml",
         "yml",
         "schema",
@@ -34,8 +35,7 @@
         "@actions/core": "1.8.2",
         "glob": "8.0.3",
         "js-yaml": "4.1.0",
-        "jsonschema": "1.4.1",
-        "validator": "13.7.0"
+        "jsonschema": "1.4.1"
     },
     "devDependencies": {
         "@babel/preset-env": "7.18.0",
