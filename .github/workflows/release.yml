@@ -1,0 +1,30 @@
+name: "release"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out
+        uses: actions/checkout@v3
+
+      - id: releaser
+        name: New Version Decider
+        uses: thiagodonferreira/new-version-decider@v0.0.7
+        with:
+          loader: nodejs
+          configurationFile: ./package.json
+
+      - name: Create Release on Github
+        uses: softprops/action-gh-release@v1
+        if: ${{steps.releaser.outputs.shouldGenerateANewVersion == 'true' }}
+        with:
+          name: ${{ steps.releaser.outputs.currentVersion }}
+          tag_name: v${{steps.releaser.outputs.currentVersion}}
+          # files: "*"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
