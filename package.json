@@ -29,10 +29,11 @@
         "url": "https://github.com/thiagodonferreira/yaml-schema-checker/issues"
     },
     "engines": {
-        "node": ">=16.15.0"
+        "node": ">=16.14.0"
     },
     "dependencies": {
         "@actions/core": "1.8.2",
+        "check-arguments": "^0.0.2",
         "glob": "8.0.3",
         "js-yaml": "4.1.0",
         "jsonschema": "1.4.1"
