@@ -16,7 +16,7 @@ jobs:
 
       - id: releaser
         name: New Version Decider
-        uses: thiagodonferreira/new-version-decider@v0.0.7
+        uses: thiagodnf/new-version-decider@v0.0.7
         with:
           loader: nodejs
           configurationFile: ./package.json
