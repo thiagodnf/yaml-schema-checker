@@ -2,10 +2,10 @@
 
 A Github action for validating .yaml files using JSON schemas
 
-[![Build](https://github.com/thiagodonferreira/yaml-schema-checker/actions/workflows/build.yml/badge.svg)](https://github.com/thiagodonferreira/yaml-schema-checker/actions/workflows/build.yml)
-[![GitHub Release](https://img.shields.io/github/release/thiagodonferreira/yaml-schema-checker.svg)](https://github.com/thiagodonferreira/yaml-schema-checker/releases/latest)
-[![GitHub contributors](https://img.shields.io/github/contributors/thiagodonferreira/yaml-schema-checker.svg)](https://github.com/thiagodonferreira/yaml-schema-checker/graphs/contributors)
-[![GitHub stars](https://img.shields.io/github/stars/thiagodonferreira/yaml-schema-checker.svg)](https://github.com/thiagodonferreira/yaml-schema-checker)
+[![Build](https://github.com/thiagodnf/yaml-schema-checker/actions/workflows/build.yml/badge.svg)](https://github.com/thiagodnf/yaml-schema-checker/actions/workflows/build.yml)
+[![GitHub Release](https://img.shields.io/github/release/thiagodnf/yaml-schema-checker.svg)](https://github.com/thiagodnf/yaml-schema-checker/releases/latest)
+[![GitHub contributors](https://img.shields.io/github/contributors/thiagodnf/yaml-schema-checker.svg)](https://github.com/thiagodnf/yaml-schema-checker/graphs/contributors)
+[![GitHub stars](https://img.shields.io/github/stars/thiagodnf/yaml-schema-checker.svg)](https://github.com/thiagodnf/yaml-schema-checker)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
@@ -14,7 +14,7 @@ A Github action for validating .yaml files using JSON schemas
 You can now consume the action by referencing the available version.
 
 ```yaml
-uses: thiagodonferreira/yaml-schema-checker@0.0.4
+uses: thiagodnf/yaml-schema-checker@0.0.4
 with:
   jsonSchemaFile: schemas/example.schema.json
   yamlFiles: folder/subfolder/**/*.yml
@@ -45,7 +45,7 @@ Comma separated list of files that failed
 If you run this GitHub Actions, this is what the log information looks like:
 
 ```bash
-Run thiagodonferreira/yaml-schema-checker@main
+Run thiagodnf/yaml-schema-checker@main
 Json Schema: schemas/example.schema.json
 Yaml Files: folder/subfolder/**/*.yml
 Found 4 file(s). Checking them:
