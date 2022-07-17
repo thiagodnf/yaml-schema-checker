@@ -33,7 +33,7 @@
     },
     "dependencies": {
         "@actions/core": "1.8.2",
-        "check-arguments": "^0.0.2",
+        "check-arguments": "0.0.2",
         "glob": "8.0.3",
         "js-yaml": "4.1.0",
         "jsonschema": "1.4.1"
@@ -44,6 +44,6 @@
         "babel-jest": "28.1.0",
         "eslint": "8.15.0",
         "jest": "28.1.0",
-        "nodemon": "2.0.16"
+        "nodemon": "2.0.19"
     }
 }
