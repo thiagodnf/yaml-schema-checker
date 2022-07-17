@@ -28,7 +28,7 @@ with:
 
 ### `yamlFiles`
 
-**Required** List of files to be validated
+**Required** A list of files, directories, and wildcard patterns to be validated
 
 ## Outputs
 

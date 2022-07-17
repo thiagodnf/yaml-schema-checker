@@ -8,7 +8,7 @@ inputs:
     description: A JSON schema file following the format used at https://www.schemastore.org
     required: true
   yamlFiles:
-    description: List of files to be validated
+    description: A list of files, directories, and wildcard patterns to be validated
     required: true
 outputs:
   validFiles:
