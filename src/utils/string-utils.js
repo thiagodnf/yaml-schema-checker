@@ -48,5 +48,3 @@ class StringUtils {
 }
 
 module.exports = StringUtils;
-
-// export default StringUtils;

@@ -17,5 +17,3 @@ class SchemaUtils {
 }
 
 module.exports = SchemaUtils;
-
-// export default SchemaUtils;

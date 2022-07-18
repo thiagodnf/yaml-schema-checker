@@ -12,4 +12,4 @@ class ActionUtils {
     }
 }
 
-export default ActionUtils;
+module.exports = ActionUtils;
