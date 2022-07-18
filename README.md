@@ -19,6 +19,20 @@ with:
   yamlFiles: folder/subfolder/**/*.yml
 ```
 
+or you can use combine patterns and files as array:
+
+```yaml
+uses: thiagodnf/yaml-schema-checker@v0.0.8
+with:
+  jsonSchemaFile: schemas/example.schema.json
+  yamlFiles: |
+    file_1.yml,file_2.yml # two files in the same line
+    file_3.yml
+    folder/subfolder/**/*.yml
+```
+
+This project uses [glob](https://www.npmjs.com/package/glob) to read files
+
 ## Input
 
 ### `jsonSchemaFile`
