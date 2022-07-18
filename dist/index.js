@@ -11213,6 +11213,39 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 5086:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(2186);
+
+class ActionUtils {
+
+    static getInputAsArray(name, options) {
+
+        return core
+            .getInput(name, options)
+            .split("\n")
+            .map(s => s.trim())
+            .filter(x => x !== "");
+    }
+
+    static getInput(name, options) {
+
+        let input = core.getInput(name, options);
+
+        if (input) {
+            input = input.trim();
+        }
+
+        return input;
+    }
+}
+
+module.exports = ActionUtils;
+
+
+/***/ }),
+
 /***/ 550:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -11281,8 +11314,6 @@ class FileUtils {
 
 module.exports = FileUtils;
 
-// export default FileUtils;
-
 
 /***/ }),
 
@@ -11308,8 +11339,6 @@ class SchemaUtils {
 }
 
 module.exports = SchemaUtils;
-
-// export default SchemaUtils;
 
 
 /***/ }),
@@ -11367,8 +11396,6 @@ class StringUtils {
 }
 
 module.exports = StringUtils;
-
-// export default StringUtils;
 
 
 /***/ }),
@@ -11512,9 +11539,10 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(2186);
 
-const FileUtils  = __nccwpck_require__(550);
+const FileUtils = __nccwpck_require__(550);
 const StringUtils = __nccwpck_require__(3222);
 const SchemaUtils = __nccwpck_require__(8713);
+const ActionUtils = __nccwpck_require__(5086);
 
 async function run() {
 
@@ -11524,8 +11552,8 @@ async function run() {
             throw new Error("Workspace is empty. Did you forget to run \"actions/checkout\" before running this Github Action?");
         }
 
-        const jsonSchemaFile = core.getInput("jsonSchemaFile");
-        const yamlFiles = core.getInput("yamlFiles");
+        const jsonSchemaFile = ActionUtils.getInput("jsonSchemaFile", { required: true });
+        const yamlFiles = ActionUtils.getInputAsArray("yamlFiles", { required: true });
 
         if (StringUtils.isBlank(jsonSchemaFile)) {
             throw new Error("The 'jsonSchemaFile' parameter should not be blank");
@@ -11539,8 +11567,8 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        core.info(`Json Schema: ${jsonSchemaFile}`);
-        core.info(`Yaml Files: ${yamlFiles}`);
+        core.info(`Input Json Schema: ${jsonSchemaFile}`);
+        core.info(`Input Yaml Files: ${yamlFiles}`);
 
         const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
 
