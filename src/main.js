@@ -63,6 +63,7 @@ async function run() {
                 });
             }
         });
+
         core.info("Done. All files checked");
 
         core.setOutput("validFiles", validFiles.join(","));
