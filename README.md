@@ -13,7 +13,7 @@ A Github action for validating .yaml files using JSON schemas
 You can now consume the action by referencing the available version.
 
 ```yaml
-uses: thiagodnf/yaml-schema-checker@0.0.4
+uses: thiagodnf/yaml-schema-checker@v0.0.8
 with:
   jsonSchemaFile: schemas/example.schema.json
   yamlFiles: folder/subfolder/**/*.yml
@@ -32,7 +32,7 @@ with:
 
 ### `filesSeparator`
 
-**Optional** Separator used to split the files input. Default is "," (comma).
+**Optional** Separator used to split the files input. Default is `,` (comma).
 
 ## Outputs
 
