@@ -11589,7 +11589,7 @@ async function run() {
             });
         });
 
-        core.info(`Found ${files.size()} file(s). Checking them:`);
+        core.info(`Found ${files.size} file(s). Checking them:`);
 
         let validFiles = [];
         let invalidFiles = [];
