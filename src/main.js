@@ -44,13 +44,13 @@ async function run() {
 
             FileUtils.searchFiles(yamlFile).forEach(file => {
 
-                core.debug(`Adding file: ${yamlFile}`);
+                core.debug(`Adding file: ${file}`);
 
                 files.add(file);
             });
         });
 
-        core.info(`Found ${files.length} file(s). Checking them:`);
+        core.info(`Found ${files.size()} file(s). Checking them:`);
 
         let validFiles = [];
         let invalidFiles = [];
