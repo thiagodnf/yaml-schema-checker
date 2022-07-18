@@ -11575,6 +11575,9 @@ async function run() {
         const files = new Set();
 
         yamlFiles.forEach(yamlFile => {
+
+            core.info(`yamlFile: ${yamlFile}`);
+
             files.add(FileUtils.searchFiles(yamlFile));
         });
 
