@@ -26,8 +26,7 @@ uses: thiagodnf/yaml-schema-checker@v0.0.8
 with:
   jsonSchemaFile: schemas/example.schema.json
   yamlFiles: |
-    # two files in the same line
-    file_1.yml,file_2.yml 
+    file_1.yml,file_2.yml # two files in the same line
     file_3.yml
     folder/subfolder/**/*.yml
 ```
