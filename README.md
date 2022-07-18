@@ -2,7 +2,6 @@
 
 A Github action for validating .yaml files using JSON schemas
 
-[![Build](https://github.com/thiagodnf/yaml-schema-checker/actions/workflows/build.yml/badge.svg)](https://github.com/thiagodnf/yaml-schema-checker/actions/workflows/build.yml)
 [![GitHub Release](https://img.shields.io/github/release/thiagodnf/yaml-schema-checker.svg)](https://github.com/thiagodnf/yaml-schema-checker/releases/latest)
 [![GitHub contributors](https://img.shields.io/github/contributors/thiagodnf/yaml-schema-checker.svg)](https://github.com/thiagodnf/yaml-schema-checker/graphs/contributors)
 [![GitHub stars](https://img.shields.io/github/stars/thiagodnf/yaml-schema-checker.svg)](https://github.com/thiagodnf/yaml-schema-checker)
