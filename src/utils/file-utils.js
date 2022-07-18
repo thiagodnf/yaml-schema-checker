@@ -1,8 +1,8 @@
-import fs from "fs";
-import path from "path";
-import process from "process";
-import { glob } from "glob";
-import StringUtils from "./string-utils";
+const fs = require("fs");
+const path = require("path");
+const process = require("process");
+const { glob } = require("glob");
+const StringUtils = require("./string-utils");
 
 class FileUtils {
 
@@ -61,4 +61,6 @@ class FileUtils {
     }
 }
 
-export default FileUtils;
+module.exports = FileUtils;
+
+// export default FileUtils;

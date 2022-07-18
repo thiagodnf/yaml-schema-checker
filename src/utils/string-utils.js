@@ -1,4 +1,4 @@
-import yaml from "js-yaml";
+const yaml = require("js-yaml");
 
 class StringUtils {
 
@@ -47,4 +47,6 @@ class StringUtils {
     }
 }
 
-export default StringUtils;
+module.exports = StringUtils;
+
+// export default StringUtils;

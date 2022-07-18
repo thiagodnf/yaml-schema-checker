@@ -7280,6 +7280,9 @@ var __webpack_exports__ = {};
 // ESM COMPAT FLAG
 __nccwpck_require__.r(__webpack_exports__);
 
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(186);
+var core_default = /*#__PURE__*/__nccwpck_require__.n(core);
 // EXTERNAL MODULE: external "fs"
 var external_fs_ = __nccwpck_require__(147);
 var external_fs_default = /*#__PURE__*/__nccwpck_require__.n(external_fs_);
@@ -8034,7 +8037,7 @@ var json = failsafe.extend({
   ]
 });
 
-var core = json;
+var js_yaml_core = json;
 
 var YAML_DATE_REGEXP = new RegExp(
   '^([0-9][0-9][0-9][0-9])'          + // [1] year
@@ -8371,7 +8374,7 @@ var set = new type('tag:yaml.org,2002:set', {
   construct: constructYamlSet
 });
 
-var _default = core.extend({
+var _default = js_yaml_core.extend({
   implicit: [
     timestamp,
     merge
@@ -11095,7 +11098,7 @@ var Type                = type;
 var Schema              = schema;
 var FAILSAFE_SCHEMA     = failsafe;
 var JSON_SCHEMA         = json;
-var CORE_SCHEMA         = core;
+var CORE_SCHEMA         = js_yaml_core;
 var DEFAULT_SCHEMA      = _default;
 var load                = loader.load;
 var loadAll             = loader.loadAll;
@@ -11286,7 +11289,7 @@ class SchemaUtils {
 /* harmony default export */ const schema_utils = (SchemaUtils);
 
 ;// CONCATENATED MODULE: ./src/main.js
-const main_core = __nccwpck_require__(186);
+
 
 
 
@@ -11300,8 +11303,8 @@ async function run() {
             throw new Error("Workspace is empty. Did you forget to run \"actions/checkout\" before running this Github Action?");
         }
 
-        const jsonSchemaFile = main_core.getInput("jsonSchemaFile");
-        const yamlFiles = main_core.getInput("yamlFiles");
+        const jsonSchemaFile = core_default().getInput("jsonSchemaFile");
+        const yamlFiles = core_default().getInput("yamlFiles");
 
         if (string_utils.isBlank(jsonSchemaFile)) {
             throw new Error("The 'jsonSchemaFile' parameter should not be blank");
@@ -11315,14 +11318,14 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        main_core.info(`Json Schema: ${jsonSchemaFile}`);
-        main_core.info(`Yaml Files: ${yamlFiles}`);
+        core_default().info(`Json Schema: ${jsonSchemaFile}`);
+        core_default().info(`Yaml Files: ${yamlFiles}`);
 
         const schemaContentAsJson = file_utils.getContentFromJson(jsonSchemaFile);
 
         const files = file_utils.searchFiles(yamlFiles);
 
-        main_core.info(`Found ${files.length} file(s). Checking them:`);
+        core_default().info(`Found ${files.length} file(s). Checking them:`);
 
         let validFiles = [];
         let invalidFiles = [];
@@ -11334,30 +11337,30 @@ async function run() {
             const result = schema_utils.validate(schemaContentAsJson, yamlContentAsJson);
 
             if (result.errors.length === 0) {
-                main_core.info(`✅ ${file}`);
+                core_default().info(`✅ ${file}`);
 
                 validFiles.push(file);
             } else {
-                main_core.info(`❌ ${file}`);
+                core_default().info(`❌ ${file}`);
 
                 invalidFiles.push(file);
 
                 result.errors.forEach(error => {
-                    main_core.info(`    - ${error.stack}`);
+                    core_default().info(`    - ${error.stack}`);
                 });
             }
         });
-        main_core.info("Done. All files checked");
+        core_default().info("Done. All files checked");
 
-        main_core.setOutput("validFiles", validFiles.join(","));
-        main_core.setOutput("invalidFiles", invalidFiles.join(","));
+        core_default().setOutput("validFiles", validFiles.join(","));
+        core_default().setOutput("invalidFiles", invalidFiles.join(","));
 
         if (invalidFiles.length !== 0) {
             throw new Error(`It was found ${invalidFiles.length} invalid file(s)`);
         }
 
     } catch (error) {
-        main_core.setFailed(error.message);
+        core_default().setFailed(error.message);
     }
 }
 

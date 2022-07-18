@@ -1,4 +1,4 @@
-import { Validator } from "jsonschema";
+const { Validator } = require("jsonschema");
 
 class SchemaUtils {
 
@@ -16,4 +16,6 @@ class SchemaUtils {
     }
 }
 
-export default SchemaUtils;
+module.exports = SchemaUtils;
+
+// export default SchemaUtils;

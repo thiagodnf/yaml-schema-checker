@@ -1,7 +1,7 @@
 // const wait = require('../src/wait');
 // const process = require('process');
-const cp = require("child_process");
-const path = require("path");
+import cp from "child_process";
+import path from "path";
 
 test("throws invalid number", async () => {
     await expect(1).toBe(1);

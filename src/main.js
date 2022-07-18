@@ -1,8 +1,8 @@
 const core = require("@actions/core");
 
-import FileUtils from "./utils/file-utils";
-import StringUtils from "./utils/string-utils";
-import SchemaUtils from "./utils/schema-utils";
+const FileUtils  = require("./utils/file-utils");
+const StringUtils = require("./utils/string-utils");
+const SchemaUtils = require("./utils/schema-utils");
 
 async function run() {
 
