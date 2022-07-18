@@ -1,8 +1,9 @@
 const core = require("@actions/core");
 
-const FileUtils  = require("./utils/file-utils");
+const FileUtils = require("./utils/file-utils");
 const StringUtils = require("./utils/string-utils");
 const SchemaUtils = require("./utils/schema-utils");
+const ActionUtils = require("./utils/action-utils");
 
 async function run() {
 
@@ -12,8 +13,8 @@ async function run() {
             throw new Error("Workspace is empty. Did you forget to run \"actions/checkout\" before running this Github Action?");
         }
 
-        const jsonSchemaFile = core.getInput("jsonSchemaFile");
-        const yamlFiles = core.getInput("yamlFiles");
+        const jsonSchemaFile = ActionUtils.getInput("jsonSchemaFile", { required: true });
+        const yamlFiles = ActionUtils.getInputAsArray("yamlFiles", { required: true });
 
         if (StringUtils.isBlank(jsonSchemaFile)) {
             throw new Error("The 'jsonSchemaFile' parameter should not be blank");
@@ -27,8 +28,8 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        core.info(`Json Schema: ${jsonSchemaFile}`);
-        core.info(`Yaml Files: ${yamlFiles}`);
+        core.info(`Input Json Schema: ${jsonSchemaFile}`);
+        core.info(`Input Yaml Files: ${yamlFiles}`);
 
         const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
 

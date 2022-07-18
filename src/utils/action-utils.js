@@ -10,6 +10,17 @@ class ActionUtils {
             .map(s => s.trim())
             .filter(x => x !== "");
     }
+
+    static getInput(name, options) {
+
+        let input = core.getInput(name, options);
+
+        if (input) {
+            input = input.trim();
+        }
+
+        return input;
+    }
 }
 
 module.exports = ActionUtils;
