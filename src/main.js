@@ -33,7 +33,11 @@ async function run() {
 
         const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
 
-        const files = FileUtils.searchFiles(yamlFiles);
+        const files = new Set();
+
+        yamlFiles.forEach(yamlFile => {
+            files.add(FileUtils.searchFiles(yamlFile));
+        });
 
         core.info(`Found ${files.length} file(s). Checking them:`);
 
