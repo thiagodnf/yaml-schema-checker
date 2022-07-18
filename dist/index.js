@@ -11246,6 +11246,36 @@ module.exports = ActionUtils;
 
 /***/ }),
 
+/***/ 4177:
+/***/ ((module) => {
+
+class ArrayUtils {
+
+    static split(array, separator = ",") {
+
+        let result = [];
+
+        array.forEach(e => {
+            result = [...result, ...ArrayUtils.splitFromString(e, separator)];
+        });
+
+        return result;
+    }
+
+    static splitFromString(str, separator = ",") {
+
+        return str
+            .split(separator)
+            .map(s => s.trim())
+            .filter(x => x !== "");
+    }
+}
+
+module.exports = ArrayUtils;
+
+
+/***/ }),
+
 /***/ 550:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -11543,6 +11573,7 @@ const FileUtils = __nccwpck_require__(550);
 const StringUtils = __nccwpck_require__(3222);
 const SchemaUtils = __nccwpck_require__(8713);
 const ActionUtils = __nccwpck_require__(5086);
+const ArrayUtils = __nccwpck_require__(4177);
 
 async function run() {
 
@@ -11568,10 +11599,7 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        core.info("Inputs:");
-        core.info(`  Json Schema: ${jsonSchemaFile}`);
-        core.info(`  Files Separator: ${filesSeparator}`);
-        core.info(`  Yaml Files: ${yamlFiles}`);
+        const inputYamlFiles = ArrayUtils.split(yamlFiles, filesSeparator);
 
         const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
 
@@ -11579,7 +11607,7 @@ async function run() {
 
         core.debug("Loading all files");
 
-        yamlFiles.forEach(yamlFile => {
+        inputYamlFiles.forEach(yamlFile => {
 
             core.debug(`Processing input: ${yamlFile}`);
 

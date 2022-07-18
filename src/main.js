@@ -4,6 +4,7 @@ const FileUtils = require("./utils/file-utils");
 const StringUtils = require("./utils/string-utils");
 const SchemaUtils = require("./utils/schema-utils");
 const ActionUtils = require("./utils/action-utils");
+const ArrayUtils = require("./utils/array-utils");
 
 async function run() {
 
@@ -29,10 +30,7 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        core.info("Inputs:");
-        core.info(`  Json Schema: ${jsonSchemaFile}`);
-        core.info(`  Files Separator: ${filesSeparator}`);
-        core.info(`  Yaml Files: ${yamlFiles}`);
+        const inputYamlFiles = ArrayUtils.split(yamlFiles, filesSeparator);
 
         const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
 
@@ -40,7 +38,7 @@ async function run() {
 
         core.debug("Loading all files");
 
-        yamlFiles.forEach(yamlFile => {
+        inputYamlFiles.forEach(yamlFile => {
 
             core.debug(`Processing input: ${yamlFile}`);
 
