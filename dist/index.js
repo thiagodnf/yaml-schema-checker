@@ -11554,6 +11554,7 @@ async function run() {
 
         const jsonSchemaFile = ActionUtils.getInput("jsonSchemaFile", { required: true });
         const yamlFiles = ActionUtils.getInputAsArray("yamlFiles", { required: true });
+        const filesSeparator = ActionUtils.getInput("filesSeparator", { required: false });
 
         if (StringUtils.isBlank(jsonSchemaFile)) {
             throw new Error("The 'jsonSchemaFile' parameter should not be blank");
@@ -11569,6 +11570,7 @@ async function run() {
 
         core.info("Inputs:");
         core.info(`  Json Schema: ${jsonSchemaFile}`);
+        core.info(`  Files Separator: ${filesSeparator}`);
         core.info(`  Yaml Files: ${yamlFiles}`);
 
         const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
