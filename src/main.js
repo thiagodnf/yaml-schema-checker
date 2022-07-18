@@ -28,8 +28,9 @@ async function run() {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        core.info(`Input Json Schema: ${jsonSchemaFile}`);
-        core.info(`Input Yaml Files: ${yamlFiles}`);
+        core.info("Inputs:");
+        core.info(`  Json Schema: ${jsonSchemaFile}`);
+        core.info(`  Yaml Files: ${yamlFiles}`);
 
         const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
 
@@ -39,7 +40,10 @@ async function run() {
 
             core.debug(`yamlFile: ${yamlFile}`);
 
-            files.add(FileUtils.searchFiles(yamlFile));
+            FileUtils.searchFiles(yamlFile).forEach(file => {
+
+                files.add(file);
+            });
         });
 
         core.info(`Found ${files} file(s). Checking them:`);
