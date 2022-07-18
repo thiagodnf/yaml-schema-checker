@@ -10,6 +10,10 @@ inputs:
   yamlFiles:
     description: A list of files, directories, and wildcard patterns to be validated
     required: true
+  filesSeparator:
+    description: "Separator used to split the files input"
+    default: ","
+    required: false
 outputs:
   validFiles:
     description: Comma separated list of files that passed

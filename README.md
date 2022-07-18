@@ -30,6 +30,11 @@ with:
 
 **Required** A list of files, directories, and wildcard patterns to be validated
 
+
+### `filesSeparator`
+
+**Optional** Separator used to split the files input. Default is "," (comma).
+
 ## Outputs
 
 ### `validFiles`
