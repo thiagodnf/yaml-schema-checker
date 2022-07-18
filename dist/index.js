@@ -11575,17 +11575,21 @@ async function run() {
 
         const files = new Set();
 
+        core.debug("Loading all files");
+
         yamlFiles.forEach(yamlFile => {
 
-            core.debug(`yamlFile: ${yamlFile}`);
+            core.debug(`Processing input: ${yamlFile}`);
 
             FileUtils.searchFiles(yamlFile).forEach(file => {
+
+                core.debug(`Adding file: ${yamlFile}`);
 
                 files.add(file);
             });
         });
 
-        core.info(`Found ${files} file(s). Checking them:`);
+        core.info(`Found ${files.length} file(s). Checking them:`);
 
         let validFiles = [];
         let invalidFiles = [];
