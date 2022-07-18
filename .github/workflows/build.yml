@@ -4,18 +4,28 @@ on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/cache@v2
-      id: yarn-cache
-      with:
-        path: |
-          **/node_modules
-          **/.eslintcache
-          ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-    - uses: actions/checkout@v3
+
+    - name: Checking out
+      uses: actions/checkout@v3
+
     - run: npm ci
+
     - run: npm run all
+
+    - name: Committing files
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "Github Actions"
+        git add dist/*
+        git commit -m "Updatig dist folder"
+
+    - name: Pushing changes to the repo
+      uses: ad-m/github-push-action@v0.6.0
+      with:
+        branch: ${{ github.ref }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}

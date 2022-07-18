@@ -1,9 +1,9 @@
-name: "release"
+name: "Release New Version"
 on:
   pull_request:
   push:
-    branches:
-      - main
+    paths:
+      - 'package.json'
 
 jobs:
   release:
@@ -11,22 +11,24 @@ jobs:
     permissions:
       contents: write
     steps:
+
       - name: Checking out
         uses: actions/checkout@v3
 
       - id: releaser
-        name: New Version Decider
-        uses: thiagodnf/new-version-decider@v0.0.7
+        name: Verifying if a new version is needed
+        uses: thiagodnf/new-version-decider@v0.0.5
         with:
           loader: nodejs
           configurationFile: ./package.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Release on Github
+      - name: Creating a new release on Github
         uses: softprops/action-gh-release@v1
-        if: ${{steps.releaser.outputs.shouldGenerateANewVersion == 'true' }}
+        if: steps.releaser.outputs.newVersion == 'true'
         with:
           name: ${{ steps.releaser.outputs.currentVersion }}
           tag_name: v${{steps.releaser.outputs.currentVersion}}
-          # files: "*"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
