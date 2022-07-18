@@ -11284,6 +11284,7 @@ const path = __nccwpck_require__(1017);
 const process = __nccwpck_require__(7282);
 const { glob } = __nccwpck_require__(1957);
 const StringUtils = __nccwpck_require__(3222);
+const core = __nccwpck_require__(2186);
 
 class FileUtils {
 
@@ -11300,6 +11301,27 @@ class FileUtils {
     static exists(fileOrPath) {
 
         return fs.existsSync(fileOrPath);
+    }
+
+    static loadFiles(array) {
+
+        core.debug("Loading all files");
+
+        const files = new Set();
+
+        array.forEach(el => {
+
+            core.debug(`Processing: ${el}`);
+
+            FileUtils.searchFiles(el).forEach(file => {
+
+                core.debug(`Adding file: ${file}`);
+
+                files.add(file);
+            });
+        });
+
+        return files;
     }
 
     static searchFiles(pattern) {
@@ -11583,41 +11605,27 @@ async function run() {
             throw new Error("Workspace is empty. Did you forget to run \"actions/checkout\" before running this Github Action?");
         }
 
-        const jsonSchemaFile = ActionUtils.getInput("jsonSchemaFile", { required: true });
-        const yamlFiles = ActionUtils.getInputAsArray("yamlFiles", { required: true });
-        const filesSeparator = ActionUtils.getInput("filesSeparator", { required: false });
+        const inputJsonSchemaFile = ActionUtils.getInput("jsonSchemaFile", { required: true });
+        const inputYamlFiles = ActionUtils.getInputAsArray("yamlFiles", { required: true });
+        const inputFilesSeparator = ActionUtils.getInput("filesSeparator", { required: false });
 
-        if (StringUtils.isBlank(jsonSchemaFile)) {
+        if (StringUtils.isBlank(inputJsonSchemaFile)) {
             throw new Error("The 'jsonSchemaFile' parameter should not be blank");
         }
 
-        if (!FileUtils.exists(jsonSchemaFile)) {
-            throw new Error(`${jsonSchemaFile} could not be found in workspace`);
+        if (!FileUtils.exists(inputJsonSchemaFile)) {
+            throw new Error(`${inputJsonSchemaFile} could not be found in workspace`);
         }
 
-        if (StringUtils.isBlank(yamlFiles)) {
+        if (StringUtils.isBlank(inputYamlFiles)) {
             throw new Error("The 'yamlFiles' parameter should not be blank");
         }
 
-        const inputYamlFiles = ArrayUtils.split(yamlFiles, filesSeparator);
+        const yamlFiles = ArrayUtils.split(inputYamlFiles, inputFilesSeparator);
 
-        const schemaContentAsJson = FileUtils.getContentFromJson(jsonSchemaFile);
+        const schemaContentAsJson = FileUtils.getContentFromJson(inputJsonSchemaFile);
 
-        const files = new Set();
-
-        core.debug("Loading all files");
-
-        inputYamlFiles.forEach(yamlFile => {
-
-            core.debug(`Processing input: ${yamlFile}`);
-
-            FileUtils.searchFiles(yamlFile).forEach(file => {
-
-                core.debug(`Adding file: ${file}`);
-
-                files.add(file);
-            });
-        });
+        const files = FileUtils.loadFiles(yamlFiles);
 
         core.info(`Found ${files.size} file(s). Checking them:`);
 

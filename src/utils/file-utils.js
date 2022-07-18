@@ -3,6 +3,7 @@ const path = require("path");
 const process = require("process");
 const { glob } = require("glob");
 const StringUtils = require("./string-utils");
+const core = require("@actions/core");
 
 class FileUtils {
 
@@ -19,6 +20,27 @@ class FileUtils {
     static exists(fileOrPath) {
 
         return fs.existsSync(fileOrPath);
+    }
+
+    static loadFiles(array) {
+
+        core.debug("Loading all files");
+
+        const files = new Set();
+
+        array.forEach(el => {
+
+            core.debug(`Processing: ${el}`);
+
+            FileUtils.searchFiles(el).forEach(file => {
+
+                core.debug(`Adding file: ${file}`);
+
+                files.add(file);
+            });
+        });
+
+        return files;
     }
 
     static searchFiles(pattern) {
