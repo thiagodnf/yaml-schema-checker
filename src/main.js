@@ -37,17 +37,19 @@ async function run() {
 
         yamlFiles.forEach(yamlFile => {
 
-            core.info(`yamlFile: ${yamlFile}`);
+            core.debug(`yamlFile: ${yamlFile}`);
 
             files.add(FileUtils.searchFiles(yamlFile));
         });
 
-        core.info(`Found ${files.length} file(s). Checking them:`);
+        core.info(`Found ${files} file(s). Checking them:`);
 
         let validFiles = [];
         let invalidFiles = [];
 
         files.forEach(file => {
+
+            core.debug(`Processing: ${file}`);
 
             const yamlContentAsJson = FileUtils.getContentFromYaml(file);
 
