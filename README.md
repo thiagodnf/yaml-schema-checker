@@ -13,7 +13,7 @@ A Github action for validating .yaml files using JSON schemas
 You can now consume the action by referencing the available version.
 
 ```yaml
-uses: thiagodnf/yaml-schema-checker@v0.0.8
+uses: thiagodnf/yaml-schema-checker@v0.0.9
 with:
   jsonSchemaFile: schemas/example.schema.json
   yamlFiles: folder/subfolder/**/*.yml
@@ -22,7 +22,7 @@ with:
 or you can use combine patterns and files as array:
 
 ```yaml
-uses: thiagodnf/yaml-schema-checker@v0.0.8
+uses: thiagodnf/yaml-schema-checker@v0.0.9
 with:
   jsonSchemaFile: schemas/example.schema.json
   yamlFiles: |
@@ -63,7 +63,7 @@ Comma separated list of files that failed
 If you run this GitHub Actions, this is what the log information looks like:
 
 ```bash
-Run thiagodnf/yaml-schema-checker@main
+Run thiagodnf/yaml-schema-checker@v0.0.9
 Json Schema: schemas/example.schema.json
 Yaml Files: folder/subfolder/**/*.yml
 Found 4 file(s). Checking them:
