@@ -72,7 +72,6 @@ async function run() {
         if (invalidFiles.length !== 0) {
             throw new Error(`It was found ${invalidFiles.length} invalid file(s)`);
         }
-
     } catch (error) {
         core.setFailed(error.message);
     }
