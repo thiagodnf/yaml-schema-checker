@@ -17,6 +17,7 @@ async function run() {
         const inputJsonSchemaFile = ActionUtils.getInput("jsonSchemaFile", { required: true });
         const inputYamlFiles = ActionUtils.getInputAsArray("yamlFiles", { required: true });
         const inputFilesSeparator = ActionUtils.getInput("filesSeparator", { required: false });
+        const enableGithubStepSummary = ActionUtils.getInput("enableGithubStepSummary", {required: false });
 
         if (StringUtils.isBlank(inputJsonSchemaFile)) {
             throw new Error("The 'jsonSchemaFile' parameter should not be blank");
@@ -40,9 +41,12 @@ async function run() {
 
         let validFiles = [];
         let invalidFiles = [];
+        let stepSummaryTable = [];
+
+        stepSummaryTable.push([{data: "File", header: true}, {data: "Result", header: true}, {errors: "Errors", header: true}]);
 
         files.forEach(file => {
-
+            var summary_file_info = {};
             core.debug(`Processing: ${file}`);
 
             const yamlContentAsJson = FileUtils.getContentFromYaml(file);
@@ -50,19 +54,30 @@ async function run() {
             const result = SchemaUtils.validate(schemaContentAsJson, yamlContentAsJson);
 
             if (result.errors.length === 0) {
+                summary_file_info["result"] = "✅";
+                summary_file_info["errors"] = "";
                 core.info(`✅ ${file}`);
 
                 validFiles.push(file);
             } else {
+                summary_file_info["result"] = "❌";
                 core.info(`❌ ${file}`);
 
                 invalidFiles.push(file);
-
+                summary_file_info["errors"] = "<ul>";
                 result.errors.forEach(error => {
+                    summary_file_info["errors"] += `<li>${error.stack}</li>`;
                     core.info(`    - ${error.stack}`);
                 });
+                summary_file_info["errors"] += "</ul>";
             }
+            stepSummaryTable.push([`${file}`, summary_file_info["result"], summary_file_info["errors"]]);
         });
+
+        if (enableGithubStepSummary == "true") {
+            core.summary.addHeading("YAML Validation Results").addTable(stepSummaryTable).write();
+        }
+
 
         core.info("Done. All files checked");
 
