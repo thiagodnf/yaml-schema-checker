@@ -20,5 +20,5 @@ outputs:
   invalidFiles:
     description: Comma separated list of files that failed
 runs:
-  using: "node16"
+  using: "node20"
   main: "dist/index.js"
