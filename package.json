@@ -1,6 +1,6 @@
 {
     "name": "yaml-schema-checker",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "description": "A Github action for validating .yaml files using JSON schemas",
     "homepage": "https://github.com/thiagodnf/yaml-schema-checker",
     "main": "src/main.js",
